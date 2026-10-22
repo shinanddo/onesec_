@@ -19,7 +19,8 @@ a{color:inherit;text-decoration:none}
 @media (max-width:640px){#stage{padding:0}#device{border-radius:0;box-shadow:none}}
 
 /* ---------- 월페이퍼 / 공통 레이어 ---------- */
-.wall{position:absolute;inset:0;background:radial-gradient(circle at 15% 18%,rgba(255,255,255,.5),transparent 32%),radial-gradient(circle at 85% 82%,rgba(100,126,199,.32),transparent 30%),linear-gradient(160deg,#819caf 0%,#d9c6c7 55%,#8496b6 100%)}
+.wall{position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.14),rgba(0,0,0,.30)),center top/cover no-repeat url(assets/wallpaper.jpg) #222}
+.wall.black{background:#000}
 .layer{position:absolute;inset:0}
 .homehit{position:absolute;left:0;right:0;bottom:0;height:44px;z-index:55;cursor:pointer}
 .app{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:50px;box-sizing:border-box}
@@ -33,7 +34,7 @@ a{color:inherit;text-decoration:none}
 /* ---------- 잠금화면 / 암호 ---------- */
 .lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:80px 8px 54px;color:#fff;text-align:center}
 .lock-date{font:600 20px/24px var(--ios-font);opacity:.92}
-.lock-time{font:200 98px/1.05 var(--ios-font);letter-spacing:-3px;margin-top:2px}
+.lock-time{font:700 100px/1.05 ui-rounded,"SF Pro Rounded",var(--ios-font);letter-spacing:-1px;margin-top:4px;background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.55) 55%,rgba(255,255,255,.75) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(255,255,255,.28)) drop-shadow(0 10px 28px rgba(255,255,255,.14))}
 .lock-notifs{width:100%;margin-top:34px;text-align:left}
 .unlocktip{margin-top:auto;background:none;border:0;color:#fff;font:500 14px/18px var(--ios-font);opacity:.9;padding:10px 14px}
 .lock-actions{width:100%;display:flex;justify-content:space-between;padding:0 38px;box-sizing:border-box;margin-top:10px}
@@ -256,7 +257,8 @@ a.wvLive,div.wvLive{display:block;background:#fff;border-radius:26px;overflow:hi
 .wvLive-stats b{color:#55555c;font-weight:800;margin-right:3px}
 .wvLive-stats i{font-style:normal;margin:0 6px}
 /* ---------- 음악 ---------- */
-.musicHero{padding:8px 16px 16px;background:linear-gradient(180deg,#e8d7dc,transparent)}
+.jelly{width:60px;height:60px;display:block}
+.musicHero{padding:14px 16px 16px;background:linear-gradient(180deg,#e8d7dc,transparent)}
 .playlistHead{display:flex;gap:16px;align-items:flex-end}
 .playlistArt{width:132px;height:132px;border-radius:16px;overflow:hidden;box-shadow:0 14px 26px rgba(0,0,0,.2);flex:none}
 .playlistArt img{width:100%;height:100%;object-fit:cover;display:block}
@@ -271,6 +273,7 @@ a.wvLive,div.wvLive{display:block;background:#fff;border-radius:26px;overflow:hi
 .track .tt{font:500 16px/21px var(--ios-font)}
 
 /* ---------- 메모 / 카메라 ---------- */
+.diaryText{margin:0 0 18px;font:400 17px/1.55 var(--ios-font);white-space:pre-wrap;word-break:keep-all;color:inherit}
 .diaryPage{width:100%;height:auto;display:block;margin-bottom:14px;border-radius:4px}
 .notes-title{font:700 26px/32px var(--ios-font);margin:6px 0 18px}
 .cam{position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,#3a4350,#0c0d10 70%);display:flex;flex-direction:column;color:#fff}
@@ -297,13 +300,14 @@ a.wvLive,div.wvLive{display:block;background:#fff;border-radius:26px;overflow:hi
 .calicon i{font:300 37px/40px var(--ios-font);font-style:normal;color:#111}
 .cal-bar{width:4px;align-self:stretch;border-radius:2px;flex:none;margin:6px 0}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.ios-statusbar__time{text-align:left;padding-left:22px;box-sizing:border-box}
 </style>
 </head>
 <body>
 <div id="stage"><div id="scaler"><div id="device"><div id="phone" class="ios-surface"></div></div></div></div>
 <script>
 const ALBUM=[{"t":"p","s":"IMG_0001.jpg","th":"IMG_0001_t.jpg","date":"8월 24일 월요일","time":"오후 2:02"},{"t":"p","s":"IMG_0002.jpg","th":"IMG_0002_t.jpg","date":"8월 26일 수요일","time":"오후 11:38"},{"t":"p","s":"IMG_0003.jpg","th":"IMG_0003_t.jpg","date":"8월 29일 토요일","time":"오전 11:02"},{"t":"p","s":"IMG_0004.jpg","th":"IMG_0004_t.jpg","date":"8월 31일 월요일","time":"오후 10:28"},{"t":"v","s":"VID_v2.mp4","th":"VID_v2_t.jpg","poster":"VID_v2_p.jpg","dur":"0:43","date":"9월 3일 목요일","time":"오전 6:15"},{"t":"p","s":"IMG_0005.jpg","th":"IMG_0005_t.jpg","date":"9월 5일 토요일","time":"오후 4:42"},{"t":"p","s":"IMG_0006.jpg","th":"IMG_0006_t.jpg","date":"9월 8일 화요일","time":"오전 5:02"},{"t":"p","s":"IMG_0007.jpg","th":"IMG_0007_t.jpg","date":"9월 10일 목요일","time":"오후 1:29"},{"t":"v","s":"VID_v3.mp4","th":"VID_v3_t.jpg","poster":"VID_v3_p.jpg","dur":"0:47","date":"9월 13일 일요일","time":"오전 12:59"},{"t":"p","s":"IMG_0008.jpg","th":"IMG_0008_t.jpg","date":"9월 15일 화요일","time":"오후 12:16"},{"t":"p","s":"IMG_0009.jpg","th":"IMG_0009_t.jpg","date":"9월 17일 목요일","time":"오후 8:22"},{"t":"v","s":"VID_v1.mp4","th":"VID_v1_t.jpg","poster":"VID_v1_p.jpg","dur":"0:25","date":"9월 20일 일요일","time":"오전 8:38"},{"t":"p","s":"IMG_0010.jpg","th":"IMG_0010_t.jpg","date":"9월 22일 화요일","time":"오후 5:44"},{"t":"p","s":"IMG_0011.jpg","th":"IMG_0011_t.jpg","date":"9월 25일 금요일","time":"오전 3:19"},{"t":"p","s":"IMG_0012.jpg","th":"IMG_0012_t.jpg","date":"9월 27일 일요일","time":"오후 1:53"},{"t":"p","s":"IMG_0013.jpg","th":"IMG_0013_t.jpg","date":"9월 30일 수요일","time":"오전 1:43"},{"t":"p","s":"IMG_0014.jpg","th":"IMG_0014_t.jpg","date":"10월 2일 금요일","time":"오후 12:00"},{"t":"p","s":"IMG_0015.jpg","th":"IMG_0015_t.jpg","date":"10월 4일 일요일","time":"오후 8:51"},{"t":"p","s":"IMG_0016.jpg","th":"IMG_0016_t.jpg","date":"10월 7일 수요일","time":"오전 7:56"},{"t":"p","s":"IMG_0017.jpg","th":"IMG_0017_t.jpg","date":"10월 9일 금요일","time":"오후 5:38"},{"t":"p","s":"IMG_0018.jpg","th":"IMG_0018_t.jpg","date":"10월 12일 월요일","time":"오전 5:57"},{"t":"p","s":"IMG_0019.jpg","th":"IMG_0019_t.jpg","date":"10월 14일 수요일","time":"오후 3:45"},{"t":"p","s":"IMG_0020.jpg","th":"IMG_0020_t.jpg","date":"10월 17일 토요일","time":"오전 12:33"},{"t":"p","s":"IMG_0021.jpg","th":"IMG_0021_t.jpg","date":"10월 19일 월요일","time":"오후 1:03"},{"t":"p","s":"IMG_0022.jpg","th":"IMG_0022_t.jpg","date":"10월 21일 수요일","time":"오후 9:31"}];
-const ICONS={phone:'assets/icons/ios26_phone.png',kakao:'assets/icons/icon_kakao.png',photos:'assets/icons/ios26_photos.png',ai:'assets/icons/icon_chatgpt.png',instagram:'assets/icons/icon_instagram.png',x:'assets/icons/ios26_x.png',weverse:'assets/icons/icon_weverse.png',music:'assets/icons/ios26_music.png',calendar:'assets/icons/ios26_calendar.png',notes:'assets/icons/ios26_notes.png',safari:'assets/icons/ios26_safari.png',camera:'assets/icons/ios26_camera.png',settings:'assets/icons/icon_settings.svg',messages:'assets/icons/ios26_messages.png'};
+const ICONS={phone:'assets/icons/ios26_phone.png',kakao:'assets/icons/icon_kakao.png',photos:'assets/icons/ios26_photos.png',ai:'assets/icons/icon_chatgpt.png',instagram:'assets/icons/icon_instagram.png',x:'assets/icons/ios26_x.png',weverse:'assets/icons/icon_weverse.png',music:'assets/icons/ios26_music.png',calendar:'assets/icons/ios26_calendar.png',notes:'assets/icons/ios26_notes.png',safari:'assets/icons/ios26_safari.png',camera:'assets/icons/ios26_camera.png',settings:'assets/icons/icon_settings.svg',messages:'assets/icons/ios26_messages.png',everytime:'assets/icons/icon_everytime.png'};
 const state={view:'lock',pin:'',app:null,detail:null,photoIndex:null,weverseTab:'feed',xTab:'search',oldChat:false,aiThread:null,aiDrawer:false,toast:null,callTab:'all',hinted:false};
 const calls=[
   ['신신신정환','오늘 오전 9:18','부재중'],['엄마','어제 오후 8:42','발신'],['누나','어제 오후 6:03','수신'],['010-3114-1106','어제 오후 4:17','부재중'],['누나','그제 오후 11:20','수신'],['엄마','그제 오후 7:55','발신'],['신신신정환','그제 오후 2:34','수신'],['070-3827-1003','10월 16일','부재중']
@@ -344,7 +348,7 @@ const playlist=[
   ['Billie Eilish','I love you','assets/music/i_love_you.jpg'],
   ['TWS','Fire Escape','assets/music/fire_escape.jpg']
 ];
-const diaryEntries=[{title:'다섯 번째 일기',pages:['assets/diary1.jpg']},{title:'일곱 번째 일기 : 옛날 이야기',pages:['assets/diary2.jpg','assets/diary3.jpg']},{title:'여섯 번째 일기',pages:['assets/diary4.jpg']}];
+const diaryEntries=[{"title": "다섯 번째 일기", "pages": ["잔뜩 들어간 그래픽, 오버핏의 스웻팬츠들과 카모 패턴, 청바지도 꼭 잔뜩 디스트로이드 디테일이 들어간 찢어진 바지들. 스타일도 그렇고 사는 방식도 그렇고 애정도 그렇고 참 일방적이고 한쪽 방향만 고집하는 그런 사람. 사랑해 한마디보단 좋아해 한마디가 좋았던, 그리고 그 누구도 믿지 못해 자기 자신도 잘 믿지 못했던, 그치만 꾸준했던. 또 외로운 걸 참 싫어하면서 내색하진 않고, 참아왔던 것도 있어 지금 현재가 더욱 소중하고 행복하기 때문에 평소에도 늘 웃고 다닌다는 소리를 듣는 모습을 띄운 사람은\n\n바로 나 이다."]}, {"title": "일곱 번째 일기 : 옛날 이야기", "pages": ["저의 마음은 마치 무인도와 같은 섬이었다고 생각해요. 다시 생각해 보면 참 다채로운 색들이 가득하고 행복도 가득한, 제가 정의하던 나름 ‘꿈’에 가까운 공간이었죠. 내 움직임과 목소리를 통해 무언가를 표현하는 일이 즐겁고 행복했던 마음이 가장 컸지만 그래도 언젠가는 높고 멋진 비행을 하기 위해 열심히 연습도 하고 많이 배우며 비행기를 뚝딱뚝딱 만들었던 것 같아요.\n\n근데 오랜 시간이 지나 돌이켜보니 지난 시간과 과정 속에서 다채로웠던 섬은 어느새 외로운 섬이 되어져 있더라구요. 처음과는 너무나도 달라진 그곳을 이제서야 눈치챈 제 자신에게 실망했어요.", "무뎌진 날들이 계속된다는 것은 시간에 대한 개념을 희미하게 만드는 일인 것 같아요. 그렇게 하루하루 보내다 보니 비행기가 완성이 되어가는 것 같을 때에도 마음 한 켠이 공허하고 혼자인 기분을 많이 느꼈어요. 그래서 만들었던 비행기를 모두 분해해서 멀리 떠날 수 있는 또 다른 꿈의 배를 완성하려고 할 때였어요. 오랜 시간 소중하게 만든 비행기를, 거의 완성이 되었던 비행기를 모조리 떼어내는 일은 참 힘들었던 것 같아요."]}, {"title": "여섯 번째 일기", "pages": ["너를 볼 수 있음에 기뻤다\n네가 좋아하는 그 순간에\n나도 웃을 수 있다는 점 또한 마음에 들었다\n\n나의 마음은 크고 무거워\n너에게 닿는 데에도 시간이 걸린다고 믿기에\n아직 전부 와닿지 않은 내 마음이\n너에게 닿는 길에도 온전히 설레였으면 좋겠다\n\n밀가루를 체에 거르듯이\n나의 마음속에도 체가 있다면\n소중하고 간직하고 싶은 기억과 말들만\n고스란히 남겨두고\n안 좋았던 기억과 영향은 전부 거르고 싶다\n온전한 색깔의 무언가를 전해주고 싶다"]}];
 const todayEvents=[['전공 수업','var(--ios-indigo)'],['연습','var(--ios-green)'],['저녁 약속','var(--ios-red)']];
 
 /* ---------- 헬퍼 ---------- */
@@ -356,7 +360,7 @@ setInterval(tickClock,1000);
 let flags={};
 const I=(n,s)=>`<i class="ios-icon ios-icon--${n}"${s?` style="${s}"`:''}></i>`;
 const av=(src,size,extra='')=>`<span class="ios-avatar" style="--size:${size}px;${extra}"><img class="avimg" src="${src}" alt=""></span>`;
-const statusBar=(white)=>`<div class="ios-island"></div><div class="ios-statusbar"${white?' style="color:#fff"':''}><div class="ios-statusbar__row"><span class="ios-statusbar__time">${clockText()}</span><span class="ios-statusbar__island-gap"></span><span class="ios-statusbar__icons">${I('cellular')}${I('wifi')}<span class="ios-battery" style="--level:100"><i></i></span></span></div></div>`;
+const statusBar=(white)=>`<div class="ios-island"></div><div class="ios-statusbar"${white?' style="color:#fff"':''}><div class="ios-statusbar__row"><span class="ios-statusbar__time">${clockText()}</span><span class="ios-statusbar__island-gap"></span><span class="ios-statusbar__icons">${I('cellular')}${I('wifi')}<span class="ios-battery" style="--level:70"><i></i></span></span></div></div>`;
 const backBtn=(onclick)=>`<button class="ios-barbutton" aria-label="뒤로" onclick="${onclick}">${I('chevron-left')}</button>`;
 const navInline=(title,lead='',trail='')=>`<header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading">${lead}</div><h1 class="ios-navbar__inline-title">${title}</h1><div class="ios-navbar__trailing">${trail}</div></div></header>`;
 const navLarge=(title,lead='',trail='')=>`<header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading">${lead}</div><div class="ios-navbar__trailing">${trail}</div></div><h1 class="ios-navbar__large-title">${title}</h1></header>`;
@@ -367,7 +371,7 @@ function flash(msg){state.toast=msg;render();setTimeout(()=>{if(state.toast===ms
 function showToast(msg){flash(msg)}
 
 /* ---------- 이동 ---------- */
-function openApp(id){state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='photos')state.photoScroll=null;if(id==='calendar')calInit();if(id==='ai'){state.aiThread=null;state.aiDrawer=false;}if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
+function openApp(id){if(id==='everytime'){showToast('에브리타임은 아직 준비 중이야.');return;}state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='photos')state.photoScroll=null;if(id==='calendar')calInit();if(id==='ai'){state.aiThread=null;state.aiDrawer=false;}if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
 function goHome(){state.view='home';state.app=null;state.detail=null;state.photoIndex=null;render();}
 function openChat(name){state.detail=name;render();}
 function openPhoto(i){const g=q('.photogrid');state.photoScroll=g?g.parentElement.scrollTop:null;state.photoIndex=i;render();}
@@ -380,13 +384,13 @@ function pressPin(n){if(state.pin.length>=4)return;state.pin+=String(n);if(state
 function pinBack(){if(state.pin.length){state.pin=state.pin.slice(0,-1);render();}else{state.view='lock';render();}}
 
 /* ---------- 잠금화면 / 암호 ---------- */
-function lockHTML(){flags.wall=true;flags.white=true;
+function lockHTML(){flags.wall=true;flags.black=true;flags.white=true;
 return `<div class="lock"><div class="lock-date">${dateText()}</div><div class="lock-time">${clockText()}</div>
 <div class="lock-notifs"><div class="ios-notification-list"><div class="ios-notification" onclick="beginUnlock()" style="cursor:pointer"><span class="ios-notification__icon"><img src="${ICONS.kakao}" alt=""></span><div class="ios-notification__body"><div class="ios-notification__head"><span class="ios-notification__title">신신신정환</span><span class="ios-notification__time">지금</span></div><p class="ios-notification__text">지훈아 수업 끝났냐<br>오늘은 읽씹하지 마셈 ㅋㅋ</p></div></div></div></div>
 <button class="unlocktip" onclick="beginUnlock()">위로 쓸어올려 잠금 해제</button>
 <div class="lock-actions"><button class="ios-button" data-variant="glass" data-size="lg" aria-label="손전등">${I('flashlight','--w:22px;--h:22px')}</button><button class="ios-button" data-variant="glass" data-size="lg" aria-label="카메라">${I('camera','--w:24px;--h:22px')}</button></div></div>
 <div class="ios-home-indicator" data-tone="white"></div>`;}
-function pinHTML(){flags.wall=true;flags.white=true;
+function pinHTML(){flags.wall=true;flags.black=true;flags.white=true;
 const letters={2:'ABC',3:'DEF',4:'GHI',5:'JKL',6:'MNO',7:'PQRS',8:'TUV',9:'WXYZ'};
 const key=n=>`<button class="ios-glass-clear" onclick="pressPin(${n})">${n}<small>${letters[n]||''}</small></button>`;
 return `<div class="pin"><div class="pin-title">암호 입력</div><div class="pin-dots">${[0,1,2,3].map(i=>`<span class="${state.pin.length>i?'filled':''}"></span>`).join('')}</div><div class="pin-error"></div>
@@ -400,7 +404,7 @@ return `<div class="home"><div class="widgets">
 <div class="ios-widget" data-size="small" data-standalone data-glass onclick="openApp('calendar')" style="cursor:pointer"><div class="ios-widget__card"><div class="ios-widget__eyebrow wg-eyebrow-red">오늘 일정</div><div class="ios-widget__big" style="margin-top:6px">3</div><div style="font:500 13px/17px var(--ios-font);margin-top:6px">전공 수업 · 연습 · 저녁 약속</div></div></div>
 <div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card wg-music"><div class="ios-widget__eyebrow wg-eyebrow-red">최근 재생</div><div class="wg-art"><img src="assets/music/one_more_second.jpg" alt=""></div><div class="wg-meta"><div style="font:600 14px/18px var(--ios-font)">One More Second</div><div style="font:400 12px/16px var(--ios-font);color:var(--ios-secondary-label)">1SECOND</div></div></div></div>
 </div>
-<div class="appgrid">${appIcon('kakao','카카오톡','1')}${appIcon('photos','사진')}${appIcon('ai','ChatGPT')}${appIcon('instagram','Instagram')}${appIcon('x','X')}${appIcon('weverse','Weverse')}${appIcon('music','음악')}${appIcon('calendar','캘린더')}</div></div>
+<div class="appgrid">${appIcon('kakao','카카오톡','1')}${appIcon('photos','사진')}${appIcon('ai','ChatGPT')}${appIcon('instagram','Instagram')}${appIcon('x','X')}${appIcon('weverse','Weverse')}${appIcon('music','음악')}${appIcon('calendar','캘린더')}${appIcon('everytime','에브리타임')}</div></div>
 <div class="pages"><span></span><span></span></div>
 <div class="dock ios-glass">${appIcon('phone','전화')}${appIcon('safari','Safari')}${appIcon('notes','메모')}${appIcon('camera','카메라')}</div>
 <div class="ios-home-indicator" data-tone="white"></div>`;}
@@ -532,8 +536,7 @@ return `<div class="wv"><div class="wv-bar" id="wvbar"><div class="wv-barbg"></d
 
 /* ---------- 음악 ---------- */
 function musicHTML(){
-return appWrap(navInline('')+`<div class="appscroll"><div class="musicHero"><div class="playlistHead"><div class="playlistArt"><img src="assets/music/one_more_second.jpg" alt=""></div><div><div class="playlistTitle">읽씹?
-플레이리스트</div><div class="playlistMeta">지훈이 저장한 플레이리스트 · 8곡<br>최근 재생: One More Second</div></div></div></div>
+return appWrap(`<div class="appscroll"><div class="musicHero"><div class="playlistHead"><div class="playlistArt"><img src="assets/music/one_more_second.jpg" alt=""></div><div><div class="playlistTitle"><img class="jelly" src="assets/music/jellyfish.png" alt="🪼"></div><div class="playlistMeta">지훈이 저장한 플레이리스트 · 8곡<br>최근 재생: One More Second</div></div></div></div>
 <div class="playbtns"><button class="ios-button" data-variant="filled" data-size="lg" style="background:#fa233b;color:#fff">${I('play','--w:14px;--h:16px')}&nbsp;재생</button><button class="ios-button" data-variant="gray" data-size="lg">임의 재생</button></div>
 ${playlist.map((t,i)=>`<div class="track"><div class="no">${i+1}</div><div class="cov"><img src="${t[2]}" alt=""></div><div><div class="tt">${t[1]}</div><span class="sub">${t[0]}</span></div></div>`).join('')}</div>
 <div class="ios-accessory" style="margin:6px 25px -4px"><span class="ios-accessory__art" style="background:center/cover url(assets/music/one_more_second.jpg)"></span><span class="ios-accessory__text">One More Second<small>1SECOND</small></span><label class="ios-accessory__button"><input type="checkbox" aria-label="재생/일시정지">${I('play')}${I('pause')}</label><button class="ios-accessory__button" aria-label="다음">${I('forward')}</button></div>
@@ -547,10 +550,10 @@ return appWrap(navLarge('최근 검색 기록')+`<div class="appscroll"><div cla
 /* ---------- 메모 ---------- */
 function notesHTML(){
 if(state.detail!==null){const d=diaryEntries[state.detail];
-return appWrap(navInline('',`<button class="ios-barbutton" onclick="state.detail=null;render()">${I('chevron-left')}</button>`,`<div class="ios-barbutton-group"><button class="ios-barbutton" aria-label="공유">${I('share','--w:19px;--h:19px')}</button><button class="ios-barbutton" aria-label="더보기">${I('ellipsis')}</button></div>`)+`<div class="appscroll" style="padding:0 20px"><h1 class="notes-title">${d.title}</h1>${d.pages.map((src,i)=>`<img class="diaryPage" src="${src}" alt="${d.title} ${i+1}페이지 원문">`).join('')}</div>
+return appWrap(navInline('',`<button class="ios-barbutton" onclick="state.detail=null;render()">${I('chevron-left')}</button>`,`<div class="ios-barbutton-group"><button class="ios-barbutton" aria-label="공유">${I('share','--w:19px;--h:19px')}</button><button class="ios-barbutton" aria-label="더보기">${I('ellipsis')}</button></div>`)+`<div class="appscroll" style="padding:0 20px"><h1 class="notes-title">${d.title}</h1>${d.pages.map(t=>`<p class="diaryText">${t.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</p>`).join('')}</div>
 <div style="padding:6px 16px 46px"><div class="ios-toolbar" style="width:100%"><button class="ios-barbutton" aria-label="체크리스트">${I('list-checks')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="표">${I('grid')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="마크업">${I('pencil')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" data-variant="prominent" aria-label="새로운 메모">${I('square-pen')}</button></div></div>`);}
 flags.grouped=true;
-return appWrap(navLarge('메모')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><h2 class="ios-list__header">모든 메모</h2><div class="ios-list__group">${diaryEntries.map((d,i)=>`<a href="#" class="ios-row" data-tall onclick="state.detail=${i};render();return false"><div class="ios-row__body"><span class="ios-row__title">${d.title}<span class="sub">일기 · ${d.pages.length}페이지</span></span>${I('chevron-right')}</div></a>`).join('')}</div></section></div></div>
+return appWrap(navLarge('메모')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><h2 class="ios-list__header">모든 메모</h2><div class="ios-list__group">${diaryEntries.map((d,i)=>`<a href="#" class="ios-row" data-tall onclick="state.detail=${i};render();return false"><div class="ios-row__body"><span class="ios-row__title">${d.title}<span class="sub">일기</span></span>${I('chevron-right')}</div></a>`).join('')}</div></section></div></div>
 <div style="padding:6px 16px 46px"><div class="ios-toolbar" style="width:100%"><button class="ios-barbutton" aria-label="폴더">${I('folder')}</button><span class="ios-toolbar__label"><b>${diaryEntries.length}개의 메모</b></span><button class="ios-barbutton" data-variant="prominent" aria-label="새로운 메모">${I('square-pen')}</button></div></div>`);}
 
 /* ---------- 캘린더 / 카메라 ---------- */
@@ -583,7 +586,7 @@ function render(){
  if(flags.grouped)p.setAttribute('data-bg','grouped');else p.removeAttribute('data-bg');
  p.classList.toggle('dark',!!flags.dark);
  const hud=state.toast?`<div class="ios-hud" data-variant="pill" data-position="bottom" role="status">${I('circle-check')}${state.toast}</div>`:'';
- p.innerHTML=(flags.wall?'<div class="wall"></div>':'')+html+statusBar(flags.white)+hud;
+ p.innerHTML=(flags.wall?'<div class="wall'+(flags.black?' black':'')+'"></div>':'')+html+statusBar(flags.white)+hud;
  const ks=q('.kk-scroll');if(ks)ks.scrollTop=ks.scrollHeight;
  const pg=q('.photogrid');if(pg){const sc=pg.parentElement;sc.scrollTop=state.photoScroll==null?sc.scrollHeight:state.photoScroll;}
 }
