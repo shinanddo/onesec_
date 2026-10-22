@@ -371,7 +371,7 @@ function flash(msg){state.toast=msg;render();setTimeout(()=>{if(state.toast===ms
 function showToast(msg){flash(msg)}
 
 /* ---------- 이동 ---------- */
-function openApp(id){if(id==='everytime'){showToast('에브리타임은 아직 준비 중이야.');return;}state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='photos')state.photoScroll=null;if(id==='calendar')calInit();if(id==='ai'){state.aiThread=null;state.aiDrawer=false;}if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
+function openApp(id){if(id==='everytime'||id==='messages'){showToast((id==='messages'?'메시지':'에브리타임')+'는 아직 준비 중이야.');return;}state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='photos')state.photoScroll=null;if(id==='calendar')calInit();if(id==='ai'){state.aiThread=null;state.aiDrawer=false;}if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
 function goHome(){state.view='home';state.app=null;state.detail=null;state.photoIndex=null;render();}
 function openChat(name){state.detail=name;render();}
 function openPhoto(i){const g=q('.photogrid');state.photoScroll=g?g.parentElement.scrollTop:null;state.photoIndex=i;render();}
@@ -404,9 +404,9 @@ return `<div class="home"><div class="widgets">
 <div class="ios-widget" data-size="small" data-standalone data-glass onclick="openApp('calendar')" style="cursor:pointer"><div class="ios-widget__card"><div class="ios-widget__eyebrow wg-eyebrow-red">오늘 일정</div><div class="ios-widget__big" style="margin-top:6px">3</div><div style="font:500 13px/17px var(--ios-font);margin-top:6px">전공 수업 · 연습 · 저녁 약속</div></div></div>
 <div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card wg-music"><div class="ios-widget__eyebrow wg-eyebrow-red">최근 재생</div><div class="wg-art"><img src="assets/music/one_more_second.jpg" alt=""></div><div class="wg-meta"><div style="font:600 14px/18px var(--ios-font)">One More Second</div><div style="font:400 12px/16px var(--ios-font);color:var(--ios-secondary-label)">1SECOND</div></div></div></div>
 </div>
-<div class="appgrid">${appIcon('kakao','카카오톡','1')}${appIcon('photos','사진')}${appIcon('ai','ChatGPT')}${appIcon('instagram','Instagram')}${appIcon('x','X')}${appIcon('weverse','Weverse')}${appIcon('music','음악')}${appIcon('calendar','캘린더')}${appIcon('everytime','에브리타임')}</div></div>
+<div class="appgrid">${appIcon('photos','사진')}${appIcon('ai','ChatGPT')}${appIcon('instagram','Instagram')}${appIcon('x','X')}${appIcon('weverse','Weverse')}${appIcon('music','음악')}${appIcon('calendar','캘린더')}${appIcon('everytime','에브리타임')}${appIcon('notes','메모')}${appIcon('camera','카메라')}</div></div>
 <div class="pages"><span></span><span></span></div>
-<div class="dock ios-glass">${appIcon('phone','전화')}${appIcon('safari','Safari')}${appIcon('notes','메모')}${appIcon('camera','카메라')}</div>
+<div class="dock ios-glass">${appIcon('phone','전화')}${appIcon('messages','메시지')}${appIcon('safari','Safari')}${appIcon('kakao','카카오톡','1')}</div>
 <div class="ios-home-indicator" data-tone="white"></div>`;}
 
 /* ---------- 전화 ---------- */
