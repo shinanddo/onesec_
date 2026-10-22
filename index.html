@@ -238,7 +238,8 @@ a.wvLive,div.wvLive{display:block;background:#fff;border-radius:26px;overflow:hi
 .diaryPage{width:100%;height:auto;display:block;margin-bottom:14px;border-radius:4px}
 .notes-title{font:700 26px/32px var(--ios-font);margin:6px 0 18px}
 .cam{position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,#3a4350,#0c0d10 70%);display:flex;flex-direction:column;color:#fff}
-.cam-view{flex:1;margin-top:62px;border-radius:0;background:linear-gradient(160deg,#5d7385,#a8999a 55%,#566681);opacity:.92}
+.cam-view{flex:1;min-height:0;margin-top:62px;border-radius:0;background:#000;overflow:hidden}
+.cam-view video{width:100%;height:100%;object-fit:cover;display:block}
 .cam-bar{height:206px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:18px;box-sizing:border-box;background:#000}
 .cam-mode{font:600 14px/18px var(--ios-font);color:#ffd60a;letter-spacing:.3px}
 .cam-row{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 38px;box-sizing:border-box;margin-top:18px}
@@ -495,7 +496,7 @@ return appWrap(navLarge('메모')+`<div class="appscroll"><div class="ios-list" 
 function calendarHTML(){flags.grouped=true;
 return appWrap(navLarge('10월 22일')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><h2 class="ios-list__header">오늘 · 목요일</h2><div class="ios-list__group">${todayEvents.map(e=>`<div class="ios-row" data-tall><span class="cal-bar" style="background:${e[1]};margin-right:12px"></span><div class="ios-row__body"><span class="ios-row__title">${e[0]}</span></div></div>`).join('')}</div><p class="ios-list__footer">팬싸 날짜, 학교 일정, 공연 연습 날짜 같은 작은 흔적을 넣을 예정이야.</p></section></div></div>`);}
 function cameraHTML(){flags.dark=true;flags.white=true;
-return `<div class="cam"><div class="cam-view"></div><div class="cam-bar"><div class="cam-mode">사진</div><div class="cam-row"><div class="cam-thumb"><img src="assets/photos/001.jpg" alt=""></div><button class="shutter" aria-label="촬영" onclick="showToast('이번 버전에서는 사진첩을 먼저 구현했어.')"></button><button class="cam-flip" aria-label="전환">${I('camera','--w:22px;--h:20px')}</button></div></div></div>${homeTail()}`;}
+return `<div class="cam"><div class="cam-view"><video src="assets/camera_selfie.mp4" poster="assets/camera_selfie_poster.jpg" autoplay muted loop playsinline></video></div><div class="cam-bar"><div class="cam-mode">사진</div><div class="cam-row"><div class="cam-thumb"><img src="assets/photos/001.jpg" alt=""></div><button class="shutter" aria-label="촬영" onclick="showToast('이번 버전에서는 사진첩을 먼저 구현했어.')"></button><button class="cam-flip" aria-label="전환">${I('camera','--w:22px;--h:20px')}</button></div></div></div>${homeTail()}`;}
 
 function appHTML(){switch(state.app){case'phone':return phoneHTML();case'kakao':return kakaoHTML();case'photos':return photosHTML();case'ai':return aiHTML();case'instagram':return instagramHTML();case'x':return xHTML();case'weverse':return weverseHTML();case'music':return musicHTML();case'safari':return safariHTML();case'notes':return notesHTML();case'calendar':return calendarHTML();case'camera':return cameraHTML();default:return ''}}
 
