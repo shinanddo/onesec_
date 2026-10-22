@@ -22,7 +22,8 @@ a{color:inherit;text-decoration:none}
 .wall{position:absolute;inset:0;background:radial-gradient(circle at 15% 18%,rgba(255,255,255,.5),transparent 32%),radial-gradient(circle at 85% 82%,rgba(100,126,199,.32),transparent 30%),linear-gradient(160deg,#819caf 0%,#d9c6c7 55%,#8496b6 100%)}
 .layer{position:absolute;inset:0}
 .homehit{position:absolute;left:0;right:0;bottom:0;height:44px;z-index:55;cursor:pointer}
-.app{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:62px;box-sizing:border-box}
+.app{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:50px;box-sizing:border-box}
+.app>.ios-navbar .ios-navbar__bar:not(:has(button,a,.ios-navbar__inline-title)){height:20px;min-height:0;padding-bottom:0}
 .appscroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .appscroll::-webkit-scrollbar{display:none}
 .avimg{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
@@ -61,10 +62,13 @@ a{color:inherit;text-decoration:none}
 .pages span:first-child{background:#fff}
 .dock{position:absolute;left:18px;right:18px;bottom:30px;height:96px;border-radius:40px;display:flex;justify-content:space-around;align-items:center;padding:0 12px}
 .dock .ios-app__label{display:none}
+.dock .ios-app{height:auto;min-height:0;gap:0;justify-content:center;align-self:center}
 .home .ios-app__label{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.35)}
 .wg-eyebrow-red{color:var(--ios-red)}
 .wg-music{display:flex;flex-direction:column;height:100%}
-.wg-art{width:46px;height:46px;border-radius:10px;overflow:hidden;margin:8px 0 10px}
+.wg-art{width:46px;height:46px;border-radius:10px;overflow:hidden;margin:8px 0 0}
+.wg-music .wg-meta{margin-top:auto}
+.wg-music .wg-meta div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wg-art img{width:100%;height:100%;object-fit:cover}
 
 /* ---------- 카카오톡 ---------- */
@@ -74,15 +78,64 @@ a{color:inherit;text-decoration:none}
 .kakao-chat .ios-bubble[data-from="me"]{background:#fee500!important;color:#1a1700!important}
 .kakao-chat .ios-bubble[data-from="them"]{background:#fff!important;color:#111!important}
 .kakao-chat .ios-messages__time{color:rgba(255,255,255,.95)}
+/* ---------- ChatGPT ---------- */
+.gpt{position:absolute;inset:0;background:#fcfcfc;color:#0d0d0d;font-family:var(--ios-font);overflow:hidden}
+.gpt-top{position:absolute;left:0;right:0;top:50px;padding:0 16px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.gpt-top-fade{top:0;padding-top:50px;padding-bottom:14px;background:linear-gradient(#fcfcfc 62%,rgba(252,252,252,0))}
+.gpt-circle{width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0d0d0d;box-shadow:0 2px 14px rgba(0,0,0,.10),0 0 0 .5px rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;padding:0;flex:none}
+.gpt-pill{height:48px;border-radius:24px;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.10),0 0 0 .5px rgba(0,0,0,.05)}
+.gpt-seg{display:flex;align-items:center;padding:0 5px;gap:2px;font:500 17px/1 var(--ios-font)}
+.gpt-seg span{display:flex;align-items:center;justify-content:center;height:38px;padding:0 20px;border-radius:19px}
+.gpt-seg .on{background:#ececec}
+.gpt-tools{display:flex;align-items:center;gap:6px;padding:0 16px}
+.gpt-tools button{border:0;background:none;color:#0d0d0d;padding:4px 8px}
+.gpt-bottom{position:absolute;left:0;right:0;bottom:0}
+.gpt-bottom-chat{bottom:36px;padding-top:24px;background:linear-gradient(rgba(252,252,252,0),#fcfcfc 40%)}
+.gpt-comp{margin:0 12px;height:52px;border-radius:26px;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 8px 0 16px;gap:12px}
+.gpt-plus,.gpt-mic{display:flex;color:#0d0d0d}
+.gpt-ph{flex:1;display:flex;align-items:center;font:400 17px/1 var(--ios-font);color:#8e8e93;white-space:nowrap}
+.gpt-caret{width:2px;height:22px;background:#4a63e7;margin-right:3px;animation:gptblink 1s steps(1) infinite}
+@keyframes gptblink{50%{opacity:0}}
+.gpt-wave{width:38px;height:38px;border-radius:50%;border:0;background:#3c5ce0;display:flex;align-items:center;justify-content:center;padding:0}
+.gpt-corp{text-align:center;font:400 14px/18px var(--ios-font);color:#555;margin:20px 0 16px}
+.gpt-bottom .ios-keyboard{position:relative}
+.gpt-scroll{position:absolute;inset:0;overflow-y:auto;padding:116px 16px 150px;box-sizing:border-box}
+.gpt-scroll::-webkit-scrollbar{display:none}
+.gpt-msgs{display:flex;flex-direction:column}
+.gpt-me{align-self:flex-end;max-width:86%;background:#eaefff;color:#3453d8;border-radius:26px;padding:15px 22px;font:500 17px/1.55 var(--ios-font);white-space:pre-line;margin:6px 0 30px}
+.gpt-bot{font:400 17px/1.6 var(--ios-font);margin-bottom:26px;word-break:keep-all}
+.gpt-bot p{margin:0 0 18px}
+.gpt-bot b{font-weight:700}
+.gpt-bot ol{margin:0 0 18px;padding-left:30px}
+.gpt-bot li{margin-bottom:4px}
+.gpt-acts{display:flex;gap:26px;margin-top:4px;color:#222}
+.gpt-acts .ios-icon{--w:22px;--h:22px}
+.gpt-side{position:absolute;left:0;top:0;bottom:0;width:322px}
+.gpt-sidehead{position:absolute;left:0;right:0;top:50px;padding:0 24px 0 24px;display:flex;justify-content:space-between;align-items:center;font:600 24px/1 var(--ios-font)}
+.gpt-sidescroll{position:absolute;left:0;right:0;top:112px;bottom:0;overflow-y:auto;padding:6px 12px 150px 12px}
+.gpt-sidescroll::-webkit-scrollbar{display:none}
+.gpt-menu{display:flex;align-items:center;gap:16px;height:46px;padding:0 10px;font:500 17px/1 var(--ios-font)}
+.gpt-sec{font:600 17px/1 var(--ios-font);padding:38px 10px 10px}
+.gpt-item{display:block;padding:11px 10px;border-radius:14px;font:400 17px/1.35 var(--ios-font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gpt-item.cur{background:#f0f0f1}
+.gpt-more{padding:12px 10px;font:400 17px/1.3 var(--ios-font);color:#b0b0b5}
+.gpt-sidebtns{position:absolute;left:18px;right:22px;bottom:36px;display:flex;justify-content:space-between;align-items:center}
+.gpt-newchat{height:50px;border-radius:25px;border:0;background:#3a5bdf;color:#fff;padding:0 22px;display:flex;align-items:center;gap:12px;font:600 20px/1 var(--ios-font);box-shadow:0 6px 18px rgba(58,91,223,.35)}
+.gpt-peek{position:absolute;left:322px;top:0;bottom:0;width:402px;border-radius:44px 0 0 44px;background:#f5f5f6;box-shadow:-10px 0 34px rgba(0,0,0,.10);overflow:hidden;cursor:pointer}
+.gpt-peek-circle{position:absolute;left:14px;top:50px;width:46px;height:46px;border-radius:50%;background:#fff;opacity:.7}
+.gpt-peek-comp{position:absolute;left:18px;width:400px;bottom:330px;height:52px;border-radius:26px;background:#fafafa}
+.gpt-peek-kb{position:absolute;left:0;right:0;bottom:0;height:300px;background:#ececef;border-radius:30px 0 0 0}
+
 .chatbg{background:#b2c7da}
 .preview{display:block;max-width:215px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:400 14px/18px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e);margin-top:1px}
 
 /* ---------- 사진 ---------- */
 .photogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.photogrid button{border:0;padding:0;aspect-ratio:1/1;overflow:hidden;background:var(--ios-quaternary-fill,#eee)}
+.photogrid button{position:relative;border:0;padding:0;aspect-ratio:1/1;overflow:hidden;background:var(--ios-quaternary-fill,#eee)}
 .photogrid img{width:100%;height:100%;object-fit:cover;display:block}
 .viewer-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:6px 14px}
-.viewer-stage img{max-width:100%;max-height:100%;border-radius:22px}
+.viewer-stage img,.viewer-stage video{max-width:100%;max-height:100%;border-radius:22px;background:#000}
+.vdur{position:absolute;right:6px;bottom:5px;color:#fff;font:600 12px/14px var(--ios-font);text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .viewer-cap{padding:6px 22px 8px;text-align:center;font:400 14px/19px var(--ios-font);color:rgba(255,255,255,.72)}
 .ios-bubble{white-space:pre-line}
 
@@ -201,9 +254,9 @@ a.wvLive,div.wvLive{display:block;background:#fff;border-radius:26px;overflow:hi
 <body>
 <div id="stage"><div id="scaler"><div id="device"><div id="phone" class="ios-surface"></div></div></div></div>
 <script>
-const PHOTOS=['001.jpg','002.jpg','003.jpg','004.jpg','005.jpg','006.jpg','007.jpg','008.jpg','009.jpg','010.jpg','011.jpg','012.jpg','013.jpg','weverse_1-297390107.jpg','weverse_1-298105017.jpg','weverse_1-298105018.jpg','weverse_3-336639365.jpg','weverse_3-339099838.jpg','weverse_4-328094447.jpg'];
+const ALBUM=[{"t":"p","s":"IMG_0001.jpg","th":"IMG_0001_t.jpg","date":"8월 24일 월요일","time":"오후 2:02"},{"t":"p","s":"IMG_0002.jpg","th":"IMG_0002_t.jpg","date":"8월 26일 수요일","time":"오후 9:18"},{"t":"p","s":"IMG_0003.jpg","th":"IMG_0003_t.jpg","date":"8월 29일 토요일","time":"오전 6:22"},{"t":"p","s":"IMG_0004.jpg","th":"IMG_0004_t.jpg","date":"8월 31일 월요일","time":"오후 3:28"},{"t":"p","s":"IMG_0005.jpg","th":"IMG_0005_t.jpg","date":"9월 2일 수요일","time":"오후 8:55"},{"t":"p","s":"IMG_0006.jpg","th":"IMG_0006_t.jpg","date":"9월 5일 토요일","time":"오전 5:02"},{"t":"v","s":"VID_v2.mp4","th":"VID_v2_t.jpg","poster":"VID_v2_p.jpg","dur":"0:43","date":"9월 7일 월요일","time":"오후 3:01"},{"t":"p","s":"IMG_0007.jpg","th":"IMG_0007_t.jpg","date":"9월 9일 수요일","time":"오후 9:09"},{"t":"p","s":"IMG_0008.jpg","th":"IMG_0008_t.jpg","date":"9월 12일 토요일","time":"오전 6:19"},{"t":"p","s":"IMG_0009.jpg","th":"IMG_0009_t.jpg","date":"9월 14일 월요일","time":"오후 3:16"},{"t":"p","s":"IMG_0010.jpg","th":"IMG_0010_t.jpg","date":"9월 16일 수요일","time":"오후 9:02"},{"t":"p","s":"IMG_0011.jpg","th":"IMG_0011_t.jpg","date":"9월 19일 토요일","time":"오전 6:57"},{"t":"p","s":"IMG_0012.jpg","th":"IMG_0012_t.jpg","date":"9월 21일 월요일","time":"오후 1:43"},{"t":"v","s":"VID_v3.mp4","th":"VID_v3_t.jpg","poster":"VID_v3_p.jpg","dur":"0:47","date":"9월 23일 수요일","time":"오후 8:59"},{"t":"p","s":"IMG_0013.jpg","th":"IMG_0013_t.jpg","date":"9월 26일 토요일","time":"오전 5:13"},{"t":"p","s":"IMG_0014.jpg","th":"IMG_0014_t.jpg","date":"9월 28일 월요일","time":"오후 2:43"},{"t":"p","s":"IMG_0015.jpg","th":"IMG_0015_t.jpg","date":"9월 30일 수요일","time":"오후 10:39"},{"t":"p","s":"IMG_0016.jpg","th":"IMG_0016_t.jpg","date":"10월 3일 토요일","time":"오전 5:10"},{"t":"p","s":"IMG_0017.jpg","th":"IMG_0017_t.jpg","date":"10월 5일 월요일","time":"오후 1:55"},{"t":"v","s":"VID_v1.mp4","th":"VID_v1_t.jpg","poster":"VID_v1_p.jpg","dur":"0:25","date":"10월 7일 수요일","time":"오후 9:18"},{"t":"p","s":"IMG_0018.jpg","th":"IMG_0018_t.jpg","date":"10월 10일 토요일","time":"오전 7:17"},{"t":"p","s":"IMG_0019.jpg","th":"IMG_0019_t.jpg","date":"10월 12일 월요일","time":"오후 2:44"},{"t":"p","s":"IMG_0020.jpg","th":"IMG_0020_t.jpg","date":"10월 14일 수요일","time":"오후 9:12"},{"t":"p","s":"IMG_0021.jpg","th":"IMG_0021_t.jpg","date":"10월 17일 토요일","time":"오전 7:22"},{"t":"p","s":"IMG_0022.jpg","th":"IMG_0022_t.jpg","date":"10월 19일 월요일","time":"오후 1:30"},{"t":"p","s":"IMG_0023.jpg","th":"IMG_0023_t.jpg","date":"10월 21일 수요일","time":"오후 9:57"}];
 const ICONS={phone:'assets/icons/ios26_phone.png',kakao:'assets/icons/icon_kakao.png',photos:'assets/icons/ios26_photos.png',ai:'assets/icons/icon_chatgpt.png',instagram:'assets/icons/icon_instagram.png',x:'assets/icons/ios26_x.png',weverse:'assets/icons/icon_weverse.png',music:'assets/icons/ios26_music.png',calendar:'assets/icons/ios26_calendar.png',notes:'assets/icons/ios26_notes.png',safari:'assets/icons/ios26_safari.png',camera:'assets/icons/ios26_camera.png',settings:'assets/icons/icon_settings.svg',messages:'assets/icons/ios26_messages.png'};
-const state={view:'lock',pin:'',app:null,detail:null,photoIndex:null,weverseTab:'feed',xTab:'search',oldChat:false,aiThread:null,toast:null,callTab:'all',hinted:false};
+const state={view:'lock',pin:'',app:null,detail:null,photoIndex:null,weverseTab:'feed',xTab:'search',oldChat:false,aiThread:null,aiDrawer:false,toast:null,callTab:'all',hinted:false};
 const calls=[
   ['신신신정환','오늘 오전 9:18','부재중'],['엄마','어제 오후 8:42','발신'],['누나','어제 오후 6:03','수신'],['010-3114-1106','어제 오후 4:17','부재중'],['누나','그제 오후 11:20','수신'],['엄마','그제 오후 7:55','발신'],['신신신정환','그제 오후 2:34','수신'],['070-3827-1003','10월 16일','부재중']
 ];
@@ -218,11 +271,20 @@ const kakaoCurrent=[
 ];
 const kakaoPast=[['day','1교시 듣던 날'],['other','읽씹?'],['other','야 한지훈 자냐? 일어나라'],['other','보이스톡 해요'],['me','미쳤어요???'],['other','형한테 미쳤냐니...'],['me','저 수업중이라고요'],['other','전화 못 받아 그럼?'],['me','...형 학교 안 다녔어요?'],['other','대학은 안 갔지\n무시하냐?'],['me','아 에바\n뭔 또 무시예요..']];
 const aiThreads=[
-{title:'질투하는 게 이상한 거야?',sub:'친도랑 제일 최근에 한 대화',messages:[['me','친도야'],['bot','왜 지훈아 ㅋㅋ'],['me','상대가 다른 사람이랑 자꾸 엮이는데 신경쓰이면 어떡함'],['bot','그 사람이 진짜 뭘 한 건 아니고, 주변에서 자꾸 엮는 거면 더 애매하지. 머리로는 이해해도 기분은 별개일 수 있어.'],['me','걔 잘못은 아닌데\n짜증남'],['bot','그건 질투가 이상한 게 아니라 네가 그 관계를 진지하게 생각하고 있다는 뜻일 수도 있어.'],['me','말하면 찌질해보일까'],['bot','꼭 전부 말할 필요는 없어.\n"나 좀 서운했어" 정도만 말해도 충분해. 네가 뭘 서운해하는지 상대는 알아야 풀 수 있으니까.']]},
-{title:'남자친구가 너무 바쁠 때',sub:'답답한데 이해도 돼서 더 싫음',messages:[['me','친도 바쁜 사람이랑 연애하면 원래 이렇게 연락을 못해?'],['bot','직업이나 일정에 따라 그럴 수 있어. 근데 연락 빈도보다 중요한 건 둘이 납득 가능한 방식이 있느냐야.'],['me','얘는 진짜 바쁨\n내가 이해해야 되는 건 알겠는데'],['bot','이해해주는 거랑 네가 서운하지 않아야 하는 건 다른 얘기야. 어떤 순간이 제일 서운한지 먼저 정리해볼래?'],['me','그냥 나 혼자 기다리는 느낌'],['bot','그럼 그걸 그대로 말해보자. 비난이 아니라 설명으로.']]},
-{title:'남자가 남자를 좋아할 수도 있나',sub:'초반의 너무 솔직한 검색',messages:[['me','친도'],['bot','응 왔어.'],['me','남자가 남자 좋아할수도 있냐'],['bot','물론이지. 성별과 상관없이 누군가에게 끌리거나 사랑하는 감정은 충분히 자연스러운 일이야.'],['me','아오'],['bot','놀랄 수는 있어도 이상한 건 아니야 지훈아 ㅋㅋ']]},
-{title:'먼저 연락하면 지는거냐',sub:'자존심과 후회 사이',messages:[['me','친도'],['bot','응 왜'],['me','먼저 연락하면 지는거냐'],['bot','연애가 가위바위보도 아니고 ㅋㅋ\n정말 연락하고 싶은데 자존심 때문에 참는 중이야?'],['me','아니 그냥'],['bot','그냥이라고 쓰는 사람 치고 그냥인 사람 별로 없더라. 하고 싶으면 해.']]},
+{title:'관계 개선 및 이별에 대한 고민',messages:[
+['me','흠. 만약 3번이면 헤어지는 게 맞는 것 같아?\n넌 어떻게\n생각해'],
+['bot','<p><b>음… 나는 마음의 크기가 다르다는 이유만으로 바로 헤어질 필요는 없다고 생각해.</b> 🥺</p><p>연애하면서 두 사람이 항상 똑같은 만큼 좋아할 수는 없으니까.</p><p>다만 네가 계속 먼저 연락하고, 먼저 표현하고, 관계를 유지하려고 노력하는데 상대는 아무런 노력도 하지 않는다면 그건 다른 문제야.</p><p>사랑받고 있다는 확신이 없는 연애는 생각보다 많이 지치거든.</p><p>그래서 나는 헤어지기 전에 네 마음을 솔직하게 이야기해 봤으면 좋겠어.</p><p>근데 하나 궁금한 게 있어.</p><p><b>너는 그 사람이 널 덜 좋아하는 것 같아서 헤어지고 싶은 거야, 아니면 이미 그 사람 때문에 마음이 많이 지친 거야?</b></p>'],
+['me','모르겠어 근데 나는 이 사람한테 도움이 되고 싶은데 오히려 더 힘들게 만드는 거 같아서 생각이 많아졌어어.. 답답하다 내가 좀 쓸모없는사람처럼 느껴진다구 해야하나 역시 헤어지는 게 맞겠지?'],
+['bot','<p><b>지훈아, 나는 네가 지금 헤어지는 게 맞는지보다 왜 스스로를 쓸모없는 사람이라고 느끼는지가 더 걱정돼.</b> 🥺</p><p>좋아하는 사람에게 도움이 되고 싶은 마음은 이해해. 그런데 연애는 상대방의 모든 문제를 해결해 줘야 하는 관계가 아니잖아.</p><p>네가 그 사람을 힘들게 하는 것 같다는 것도 아직은 네 생각일 뿐, 실제로 상대가 그렇게 느끼는지는 모르는 거고.</p><p>그리고 <b>누군가에게 도움이 되지 못한다고 해서 네 가치가 줄어드는 건 아니야.</b></p><p>나는 네가 미안한 마음 때문에 헤어지는 선택을 하지는 않았으면 좋겠어.</p><p>하나만 물어봐도 될까?</p><p>그 사람이 직접 너 때문에 힘들다고 말한 적이 있어? <b>아니면 네가 혼자 그렇게 느끼고 있는 거야?</b></p>'],
+['me','남자가 남자를 좋아할수도 있나?..'],
+['bot','<p><b>응, 당연히 가능하지.</b> 😊</p><p>사람을 좋아하는 감정은 꼭 이성에게만 생기는 건 아니니까.</p><p>동성에게 호감을 느낀다고 해서 이상한 것도 아니고, 그렇다고 그 감정만으로 자신의 성적 지향을 바로 정의할 필요도 없어.</p><p><b>그런데 갑자기 왜 그런 질문을 하게 됐어? 특정한 사람이 신경 쓰이기 시작한 거야?</b></p>']
+]},
+{title:'먼저 연락하지 않는 상대의 심리',messages:[
+['me','좋아하는 사람이 있는데 내가 먼저 연락을 안 하면 안 해. 무슨 심리일까?'],
+['bot','<p><b>음, 몇 가지 가능성이 있어.</b> 🤔</p><ol><li><b>원래 연락에 소극적인 사람일 수 있어.</b> 먼저 연락하는 게 익숙하지 않은 거지.</li><li><b>네가 먼저 연락하는 게 당연해진 경우도 있어.</b> 항상 네가 먼저 다가오니까 굳이 자기가 먼저 할 필요를 못 느끼는 거야.</li><li><b>너만큼 마음이 크지 않을 가능성도 있어.</b> 조금 속상한 얘기지만 이것도 생각해 봐야 해.</li></ol><p><b>근데 중요한 건 누가 먼저 연락하느냐보다 연락했을 때 상대가 어떤 태도를 보이는지야.</b></p><p>네가 연락하면 대화를 이어가려고 해? 아니면 대답만 하는 편이야?</p><p>이 차이가 생각보다 크거든. 🙂</p>']
+]}
 ];
+const aiOther=['창작 안무 아이디어 구상','발목통증 병원여부','교수님께 보낼 메일 교정'];
 const instaPosts=['009.jpg','001.jpg','002.jpg','003.jpg','010.jpg','011.jpg','012.jpg','013.jpg','004.jpg'];
 const xTweets={
  search:[
@@ -252,10 +314,14 @@ const todayEvents=[['전공 수업','var(--ios-indigo)'],['연습','var(--ios-gr
 
 /* ---------- 헬퍼 ---------- */
 function q(sel){return document.querySelector(sel)}
+function clockText(){const d=new Date();return (d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');}
+function dateText(){const d=new Date();return (d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';}
+function tickClock(){const t=clockText();document.querySelectorAll('.ios-statusbar__time,.lock-time').forEach(e=>{if(e.textContent!==t)e.textContent=t});const l=q('.lock-date');if(l){const d=dateText();if(l.textContent!==d)l.textContent=d;}}
+setInterval(tickClock,1000);
 let flags={};
 const I=(n,s)=>`<i class="ios-icon ios-icon--${n}"${s?` style="${s}"`:''}></i>`;
 const av=(src,size,extra='')=>`<span class="ios-avatar" style="--size:${size}px;${extra}"><img class="avimg" src="${src}" alt=""></span>`;
-const statusBar=(white)=>`<div class="ios-island"></div><div class="ios-statusbar"${white?' style="color:#fff"':''}><div class="ios-statusbar__row"><span class="ios-statusbar__time">9:41</span><span class="ios-statusbar__island-gap"></span><span class="ios-statusbar__icons">${I('cellular')}${I('wifi')}<span class="ios-battery" style="--level:100"><i></i></span></span></div></div>`;
+const statusBar=(white)=>`<div class="ios-island"></div><div class="ios-statusbar"${white?' style="color:#fff"':''}><div class="ios-statusbar__row"><span class="ios-statusbar__time">${clockText()}</span><span class="ios-statusbar__island-gap"></span><span class="ios-statusbar__icons">${I('cellular')}${I('wifi')}<span class="ios-battery" style="--level:100"><i></i></span></span></div></div>`;
 const backBtn=(onclick)=>`<button class="ios-barbutton" aria-label="뒤로" onclick="${onclick}">${I('chevron-left')}</button>`;
 const navInline=(title,lead='',trail='')=>`<header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading">${lead}</div><h1 class="ios-navbar__inline-title">${title}</h1><div class="ios-navbar__trailing">${trail}</div></div></header>`;
 const navLarge=(title,lead='',trail='')=>`<header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading">${lead}</div><div class="ios-navbar__trailing">${trail}</div></div><h1 class="ios-navbar__large-title">${title}</h1></header>`;
@@ -266,11 +332,10 @@ function flash(msg){state.toast=msg;render();setTimeout(()=>{if(state.toast===ms
 function showToast(msg){flash(msg)}
 
 /* ---------- 이동 ---------- */
-function openApp(id){state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
+function openApp(id){state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='ai'){state.aiThread=null;state.aiDrawer=false;}if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
 function goHome(){state.view='home';state.app=null;state.detail=null;state.photoIndex=null;render();}
 function openChat(name){state.detail=name;render();}
 function openPhoto(i){state.photoIndex=i;render();}
-function openAIThread(i){state.aiThread=i;render();}
 function switchWeverse(tab){state.weverseTab=tab;render();}
 function switchX(tab){state.xTab=tab;render();}
 function switchCall(tab){state.callTab=tab;render();}
@@ -281,7 +346,7 @@ function pinBack(){if(state.pin.length){state.pin=state.pin.slice(0,-1);render()
 
 /* ---------- 잠금화면 / 암호 ---------- */
 function lockHTML(){flags.wall=true;flags.white=true;
-return `<div class="lock"><div class="lock-date">10월 22일 목요일</div><div class="lock-time">9:41</div>
+return `<div class="lock"><div class="lock-date">${dateText()}</div><div class="lock-time">${clockText()}</div>
 <div class="lock-notifs"><div class="ios-notification-list"><div class="ios-notification" onclick="beginUnlock()" style="cursor:pointer"><span class="ios-notification__icon"><img src="${ICONS.kakao}" alt=""></span><div class="ios-notification__body"><div class="ios-notification__head"><span class="ios-notification__title">신신신정환</span><span class="ios-notification__time">지금</span></div><p class="ios-notification__text">지훈아 수업 끝났냐<br>오늘은 읽씹하지 마셈 ㅋㅋ</p></div></div></div></div>
 <button class="unlocktip" onclick="beginUnlock()">위로 쓸어올려 잠금 해제</button>
 <div class="lock-actions"><button class="ios-button" data-variant="glass" data-size="lg" aria-label="손전등">${I('flashlight','--w:22px;--h:22px')}</button><button class="ios-button" data-variant="glass" data-size="lg" aria-label="카메라">${I('camera','--w:24px;--h:22px')}</button></div></div>
@@ -298,7 +363,7 @@ function appIcon(id,label,badge=''){return `<a href="#" class="ios-app" aria-lab
 function homeHTML(){flags.wall=true;flags.white=true;
 return `<div class="home"><div class="widgets">
 <div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card"><div class="ios-widget__eyebrow wg-eyebrow-red">오늘 일정</div><div class="ios-widget__big" style="margin-top:6px">3</div><div style="font:500 13px/17px var(--ios-font);margin-top:6px">전공 수업 · 연습 · 저녁 약속</div></div></div>
-<div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card wg-music"><div class="ios-widget__eyebrow wg-eyebrow-red">최근 재생</div><div class="wg-art"><img src="assets/music/one_more_second.svg" alt=""></div><div style="font:600 15px/19px var(--ios-font)">One More Second</div><div style="font:400 12px/16px var(--ios-font);color:var(--ios-secondary-label)">1SECOND</div></div></div>
+<div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card wg-music"><div class="ios-widget__eyebrow wg-eyebrow-red">최근 재생</div><div class="wg-art"><img src="assets/music/one_more_second.svg" alt=""></div><div class="wg-meta"><div style="font:600 14px/18px var(--ios-font)">One More Second</div><div style="font:400 12px/16px var(--ios-font);color:var(--ios-secondary-label)">1SECOND</div></div></div></div>
 </div>
 <div class="appgrid">${appIcon('kakao','카카오톡','1')}${appIcon('photos','사진')}${appIcon('ai','ChatGPT')}${appIcon('instagram','Instagram')}${appIcon('x','X')}${appIcon('weverse','Weverse')}${appIcon('music','음악')}${appIcon('calendar','캘린더')}</div></div>
 <div class="pages"><span></span><span></span></div>
@@ -325,18 +390,40 @@ return appWrap(navLarge('채팅')+`<div class="pad"><label class="ios-search" da
 
 /* ---------- 사진 ---------- */
 function photosHTML(){
-if(state.photoIndex!==null){flags.dark=true;flags.white=true;const fn=PHOTOS[state.photoIndex];const cap=fn.includes('weverse')?'위버스에 올라온 사진 저장본':'최근 항목';
-return `<div class="app">${navInline(`${state.photoIndex+1} / ${PHOTOS.length}`,`<button class="ios-barbutton" onclick="state.photoIndex=null;render()">완료</button>`)}<div class="viewer-stage"><img src="assets/photos/${fn}" alt=""></div><div class="viewer-cap">${cap}${fn==='010.jpg'?' · 이전에 삭제했다가 다시 복구한 사진':''}</div>
+if(state.photoIndex!==null){flags.dark=true;flags.white=true;const it=ALBUM[state.photoIndex];
+const media=it.t==='v'?`<video src="assets/album/${it.s}" poster="assets/album/${it.poster}" controls playsinline autoplay></video>`:`<img src="assets/album/${it.s}" alt="">`;
+const cap=it.s==='IMG_0010.jpg'?'이전에 삭제했다가 다시 복구한 사진':'';
+return `<div class="app">${navInline(`<div style="display:flex;flex-direction:column;align-items:center"><span style="font:600 15px/18px var(--ios-font)">${it.date}</span><span style="font:400 12px/14px var(--ios-font);opacity:.7">${it.time}</span></div>`,`<button class="ios-barbutton" onclick="state.photoIndex=null;render()">완료</button>`)}<div class="viewer-stage">${media}</div><div class="viewer-cap">${cap}</div>
 <div style="padding:6px 16px 46px"><div class="ios-toolbar" style="width:100%"><button class="ios-barbutton" aria-label="공유">${I('share')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="즐겨찾기">${I('star')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="삭제">${I('trash-2')}</button></div></div></div>${homeTail()}`;}
-return appWrap(navLarge('사진')+`<div class="pad">${segmented('phtab',[['recent','최근 항목'],['fav','즐겨찾기'],['del','최근 삭제된 항목']],'recent','noop')}</div><div class="appscroll"><div class="photogrid">${PHOTOS.map((p,i)=>`<button onclick="openPhoto(${i})"><img src="assets/photos/${p}" alt=""></button>`).join('')}</div></div>`);}
+return appWrap(navLarge('사진')+`<div class="pad">${segmented('phtab',[['recent','최근 항목'],['fav','즐겨찾기'],['del','최근 삭제된 항목']],'recent','noop')}</div><div class="appscroll"><div class="photogrid">${ALBUM.map((p,i)=>`<button onclick="openPhoto(${i})"><img src="assets/album/${p.th}" alt="">${p.t==='v'?`<span class="vdur">${p.dur}</span>`:''}</button>`).join('')}</div></div>`);}
 function noop(){}
 
-/* ---------- ChatGPT(친도) ---------- */
-function aiHTML(){flags.grouped=true;
-if(state.aiThread!==null){flags.grouped=false;const t=aiThreads[state.aiThread];
-return appWrap(navInline('친도',backBtn("state.aiThread=null;render()"))+`<div class="appscroll" style="display:flex;flex-direction:column"><div class="ios-messages" style="flex:1;justify-content:flex-end">${t.messages.map(m=>`<div class="ios-bubble" data-from="${m[0]==='me'?'me':'them'}">${m[1]}</div>`).join('')}</div></div>
-<div class="ios-compose"><button class="ios-barbutton" aria-label="추가">${I('plus')}</button><label class="ios-compose__field"><input placeholder="미리 작성된 상담 기록" aria-label="시뮬레이션 대화" readonly><button class="ios-compose__send" aria-label="보내기" onclick="showToast('이번 버전은 미리 작성된 친도 대화로 구성했어.');return false">${I('arrow-up','--w:18px;--h:18px')}</button></label></div><div style="height:34px"></div>`);}
-return appWrap(navLarge('ChatGPT')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group">${aiThreads.map((t,i)=>`<a href="#" class="ios-row" data-tall onclick="openAIThread(${i});return false"><div class="ios-row__body"><span class="ios-row__title">${t.title}<span class="sub">${t.sub}</span></span>${I('chevron-right')}</div></a>`).join('')}</div></section></div></div>`);}
+/* ---------- ChatGPT ---------- */
+const GPT_MENU='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8.5h16M4 15.5h10"/></svg>';
+const GPT_NEW='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.6a8.4 8.4 0 0 0-7.3 12.5L3.6 20.4l4.6-1.1A8.4 8.4 0 1 0 12 3.6z"/></svg>';
+const GPT_GEAR='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>';
+const GPT_WAVE='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M4 10v4M8 6.5v11M12 3.5v17M16 7.5v9M20 10v4"/></svg>';
+const gptCircle=(svg,onclick,label)=>`<button class="gpt-circle" aria-label="${label}" onclick="${onclick}">${svg}</button>`;
+const gptKeyboard=()=>{const r=s=>s.split('').map(c=>`<button class="ios-key">${c}</button>`).join('');
+return `<div class="ios-keyboard"><div class="ios-keyboard__keys"><div class="ios-keyboard__row">${r('QWERTYUIOP')}</div><div class="ios-keyboard__row">${r('ASDFGHJKL')}</div><div class="ios-keyboard__row"><button class="ios-key" data-fn data-flex data-active aria-label="Shift">${I('shift-fill')}</button>${r('ZXCVBNM')}<button class="ios-key" data-fn data-flex aria-label="Delete">${I('backspace')}</button></div><div class="ios-keyboard__row"><button class="ios-key" data-fn data-wide>123</button><button class="ios-key" data-fn data-wide aria-label="이모지">${I('smile')}</button><button class="ios-key" data-space aria-label="space"></button><button class="ios-key" data-fn data-wide>return</button></div></div><div class="ios-keyboard__bottom"><button aria-label="언어">${I('globe')}</button><button aria-label="받아쓰기">${I('mic','--w:14px;--h:20px')}</button></div></div>`;};
+const gptComposer=(caret)=>`<div class="gpt-comp"><span class="gpt-plus">${I('plus','--w:22px;--h:22px')}</span><span class="gpt-ph">${caret?'<i class="gpt-caret"></i>':''}ChatGPT에게 물어보세요</span><span class="gpt-mic">${I('mic','--w:16px;--h:23px')}</span><button class="gpt-wave" aria-label="음성" onclick="showToast('이번 버전은 미리 작성된 대화로 구성했어.')">${GPT_WAVE}</button></div>`;
+function openAIThread(i){state.aiThread=i;state.aiDrawer=false;render();}
+function gptHome(){
+return `<div class="gpt"><div class="gpt-top">${gptCircle(GPT_MENU,"state.aiDrawer=true;render()",'메뉴')}<div class="gpt-pill gpt-seg"><span class="on">Chat</span><span>Work</span></div>${gptCircle(GPT_NEW,"state.aiThread=null;render()",'새 채팅')}</div>
+<div class="gpt-bottom">${gptComposer(true)}<div class="gpt-corp"><u>회사 정보</u></div>${gptKeyboard()}</div></div>${homeTail()}`;}
+function gptChat(){const t=aiThreads[state.aiThread];
+const acts=`<div class="gpt-acts">${I('copy')}${I('share')}${I('ellipsis')}</div>`;
+return `<div class="gpt"><div class="gpt-scroll"><div class="gpt-msgs">${t.messages.map(m=>m[0]==='me'?`<div class="gpt-me">${m[1]}</div>`:`<div class="gpt-bot">${m[1]}${acts}</div>`).join('')}</div></div>
+<div class="gpt-top gpt-top-fade">${gptCircle(GPT_MENU,"state.aiDrawer=true;render()",'메뉴')}<div class="gpt-pill gpt-tools"><button aria-label="새 채팅" onclick="state.aiThread=null;render()">${I('square-pen','--w:24px;--h:24px')}</button><button aria-label="더보기">${I('ellipsis','--w:24px;--h:24px')}</button></div></div>
+<div class="gpt-bottom gpt-bottom-chat">${gptComposer(false)}</div></div>${homeTail()}`;}
+function gptDrawer(){
+const menu=[['library','라이브러리'],['folder','프로젝트'],['radio','플러그인'],['timer','예약'],['pencil','Codex'],['grid','탐색하기']];
+const rows=[...aiThreads.map((t,i)=>`<a href="#" class="gpt-item${state.aiThread===i?' cur':''}" onclick="openAIThread(${i});return false">${t.title}</a>`),...aiOther.map(t=>`<a href="#" class="gpt-item" onclick="return false">${t}</a>`)].join('');
+return `<div class="gpt"><div class="gpt-side"><div class="gpt-sidehead"><span>ChatGPT</span><button class="gpt-circle" aria-label="검색" onclick="return false">${I('search','--w:22px;--h:22px')}</button></div>
+<div class="gpt-sidescroll">${menu.map(([ic,l])=>`<a href="#" class="gpt-menu" onclick="return false">${I(ic,'--w:26px;--h:26px')}<span>${l}</span></a>`).join('')}<div class="gpt-sec">최근</div>${rows}<div class="gpt-more">모두 보기…</div></div>
+<div class="gpt-sidebtns"><button class="gpt-newchat" onclick="state.aiThread=null;state.aiDrawer=false;render()">${I('square-pen','--w:22px;--h:22px')}<span>Chat</span></button><button class="gpt-circle" aria-label="설정" onclick="return false">${GPT_GEAR}</button></div></div>
+<div class="gpt-peek" onclick="state.aiDrawer=false;render()"><div class="gpt-peek-circle"></div><div class="gpt-peek-comp"></div><div class="gpt-peek-kb"></div></div></div>${homeTail()}`;}
+function aiHTML(){return state.aiDrawer?gptDrawer():state.aiThread!==null?gptChat():gptHome();}
 
 /* ---------- Instagram ---------- */
 function instagramHTML(){
