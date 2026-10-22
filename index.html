@@ -83,6 +83,23 @@ a{color:inherit;text-decoration:none}
 .kk-title{position:absolute;left:0;right:0;top:0;height:46px;display:flex;align-items:center;justify-content:center;font:500 16px/1 var(--ios-font);pointer-events:none}
 .kk-tools{position:absolute;right:12px;top:10px;display:flex;gap:12px}
 .kk-ic{display:flex}
+.kl{background:#fff;color:#191919;font-family:var(--ios-font)}
+.kl-head{display:flex;align-items:center;justify-content:space-between;padding:6px 18px 8px}
+.kl-title{font:700 24px/30px var(--ios-font)}
+.kl-tools{display:flex;gap:18px;color:#191919}.kl-tools span{display:flex}
+.kl-list{flex:1;overflow-y:auto;padding:4px 0}
+.kl-row{display:flex;align-items:center;gap:13px;padding:9px 18px;color:inherit;text-decoration:none}
+.kl-ava{width:52px;height:52px;border-radius:20px;object-fit:cover;flex:none;background:#eee}
+.kl-mid{flex:1;min-width:0}
+.kl-name{font:600 15px/1.3 var(--ios-font)}
+.kl-prev{font:400 13px/1.35 var(--ios-font);color:#8b8b8b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.kl-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;align-self:flex-start;padding-top:3px}
+.kl-time{font:400 11px/1 var(--ios-font);color:#aaa}
+.kl-badge{min-width:18px;height:18px;border-radius:9px;background:#ff4b3a;color:#fff;font:600 11px/18px var(--ios-font);text-align:center;padding:0 5px;box-sizing:border-box}
+.kl-tabs{display:flex;justify-content:space-around;padding:8px 0 38px;border-top:1px solid #eee;background:#fff}
+.kl-tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;color:#b4b4b4;font:500 10px/1 var(--ios-font);width:64px}
+.kl-tab.on{color:#191919}
+.kl-tb{position:absolute;top:-3px;left:50%;margin-left:5px;min-width:16px;height:16px;border-radius:8px;background:#ff4b3a;color:#fff;font:600 10px/16px var(--ios-font);text-align:center}
 .kk-toggle{position:absolute;left:50%;transform:translateX(-50%);top:104px;z-index:4;border:0;border-radius:100px;background:rgba(255,255,255,.65);color:#333;font:500 12px/1 var(--ios-font);padding:7px 14px}
 .kk-day{align-self:center;background:rgba(0,0,0,.2);color:#fff;font:500 11px/1 var(--ios-font);padding:6px 14px;border-radius:100px;margin:10px 0 6px}
 .kk-row{display:flex;align-items:flex-end;gap:4px}
@@ -432,28 +449,31 @@ const KK={
 };
 function kkTime(min){const h=Math.floor(min/60)%24,m=min%60;return (h<12?'오전 ':'오후 ')+(h%12||12)+':'+String(m).padStart(2,'0');}
 function kakaoChatHTML(){
-const old=state.oldChat,msgs=old?kakaoPast:kakaoCurrent;
 const room=kakaoRooms.find(r=>r.name==='신신신정환');
-let min=old?(8*60+47):(9*60+11);
-const items=msgs.map((m,i)=>({k:m[0],t:m[1],min:m[0]==='day'?null:(min+=(i%3===1?1:0))}));
-const lastMe=(()=>{let idx=-1;items.forEach((x,i)=>{if(x.k==='me')idx=i});return idx;})();
+const seg=(msgs,base,cur)=>{let min=base;return msgs.map((m,i)=>({k:m[0],t:m[1],cur,min:m[0]==='day'?null:(min+=(i%3===1?1:0))}));};
+const items=seg(kakaoPast,8*60+47,false).concat(seg(kakaoCurrent,9*60+11,true));
+const lastMe=(()=>{let idx=-1;items.forEach((x,i)=>{if(x.k==='me'&&x.cur)idx=i});return idx;})();
 const rows=items.map((x,i)=>{
  if(x.k==='day')return `<div class="kk-day">${x.t}</div>`;
  const prev=items[i-1],next=items[i+1];
  const first=!prev||prev.k!==x.k,last=!next||next.k!==x.k;
  const time=kkTime(x.min);
  if(x.k==='me'){
-  const unread=(!old&&i===lastMe)?'<span class="kk-unread">1</span>':'';
+  const unread=(i===lastMe)?'<span class="kk-unread">1</span>':'';
   return `<div class="kk-row me"><div class="kk-meta">${unread}${last?`<span class="kk-time">${time}</span>`:''}</div><div class="kk-bubble${first?' tail':''}">${x.t}</div></div>`;}
  return `<div class="kk-row other"><div class="kk-ava">${first?`<img src="${room.avatar}" alt="">`:''}</div><div class="kk-col">${first?'<div class="kk-name">신신신정환</div>':''}<div class="kk-line"><div class="kk-bubble${first?' tail':''}">${x.t}</div>${last?`<div class="kk-meta"><span class="kk-time">${time}</span></div>`:''}</div></div></div>`;}).join('');
 return `<div class="kk"><div class="kk-scroll"><div class="kk-msgs">${rows}</div></div>
 <div class="kk-top"><div class="kk-bar"><button class="kk-ic kk-back" aria-label="뒤로" onclick="state.detail=null;render()">${KK.back}</button><div class="kk-title">신신신정환</div><div class="kk-tools"><span class="kk-ic">${KK.search}</span><span class="kk-ic">${KK.cloud}</span><span class="kk-ic">${KK.bars}</span></div></div></div>
-<button class="kk-toggle" onclick="state.oldChat=!state.oldChat;render()">${old?'현재 대화 보기':'과거 대화 보기'}</button>
 <div class="kk-inputwrap"><div class="kk-input"><span class="kk-circ">${KK.plus}</span><input class="kk-field" placeholder="메시지 입력" aria-label="메시지" readonly><span class="kk-emoji">${KK.smile}</span><span class="kk-circ">${KK.hash}</span></div></div></div>${homeTail()}`;}
 function kakaoHTML(){
 if(state.detail==='신신신정환'){return kakaoChatHTML();}
-flags.grouped=true;
-return appWrap(navLarge('채팅')+`<div class="pad"><label class="ios-search" data-variant="filled">${I('search')}<input type="search" placeholder="검색" aria-label="검색"></label></div><div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group" data-variant="plain">${kakaoRooms.map(r=>`<a href="#" class="ios-row" data-tall style="padding-left:16px" onclick="openChat('${r.name}');return false">${av(r.avatar,50,'margin-right:12px')}<div class="ios-row__body"><span class="ios-row__title">${r.name}<span class="preview">${r.preview}</span></span><span class="ios-row__detail">${r.time}</span>${r.badge?`<span class="ios-badge" data-inline>${r.badge}</span>`:''}</div></a>`).join('')}</div></section></div></div>`);}
+const tab=(svg,lab,on,bd)=>`<div class="kl-tab${on?' on':''}">${svg}${bd?`<span class="kl-tb">${bd}</span>`:''}<span>${lab}</span></div>`;
+const S=(p,f)=>`<svg width="26" height="26" viewBox="0 0 26 26" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const tabs=tab(S('<circle cx="13" cy="9" r="4.2"/><path d="M4.5 21.5c.6-4.3 4-6.6 8.5-6.6s7.9 2.3 8.5 6.6z"/>'),'친구')+tab(S('<path d="M13 3.8c5.6 0 10 3.5 10 8s-4.4 8-10 8c-1.1 0-2.2-.1-3.2-.4l-4.6 2.3.9-4.1C3.9 16 3 14.1 3 11.8c0-4.5 4.4-8 10-8z"/>',true),'채팅',true,'1')+tab(S('<path d="M5 8.5h16l-1.2 12.7H6.2z"/><path d="M9.5 8.5V7a3.5 3.5 0 0 1 7 0v1.5"/>'),'쇼핑')+tab(S('<circle cx="5.5" cy="13" r="1.4" fill="currentColor"/><circle cx="13" cy="13" r="1.4" fill="currentColor"/><circle cx="20.5" cy="13" r="1.4" fill="currentColor"/>'),'더보기');
+flags.grouped=false;
+return `<div class="app kl"><div class="kl-head"><span class="kl-title">채팅</span><span class="kl-tools"><span>${KK.search}</span><span>${S('<path d="M13 4.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17z" /><path d="M13 9v8M9 13h8"/>')}</span><span>${S('<circle cx="13" cy="13" r="3"/><path d="M13 3.5v2.4M13 20.1v2.4M3.5 13h2.4M20.1 13h2.4M6.3 6.3L8 8M18 18l1.7 1.7M19.7 6.3L18 8M8 18l-1.7 1.7"/>')}</span></span></div>
+<div class="appscroll kl-list">${kakaoRooms.map(r=>`<a href="#" class="kl-row" onclick="openChat('${r.name}');return false"><img class="kl-ava" src="${r.avatar}" alt=""><div class="kl-mid"><div class="kl-name">${r.name}</div><div class="kl-prev">${r.preview}</div></div><div class="kl-right"><span class="kl-time">${r.time}</span>${r.badge?`<span class="kl-badge">${r.badge}</span>`:''}</div></a>`).join('')}</div>
+<div class="kl-tabs">${tabs}</div></div>${homeTail()}`;}
 
 /* ---------- 사진 ---------- */
 function photosHTML(){
