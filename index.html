@@ -1,0 +1,390 @@
+<!doctype html>
+<!-- iOS 26 UI kit(aiuxplayground) 기반 한지훈의 가상 폰. 팬픽션용 시뮬레이션이며 Apple 공식 앱이 아닙니다. -->
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<title>한지훈의 iPhone · 읽씹?</title>
+<link rel="stylesheet" href="https://aiuxplayground.com/kits/ios-26/v1/ios.css">
+<style>
+/* ---------- 프레임(기기 외형) ---------- */
+html,body{margin:0;height:100%;background:#20252e}
+*{-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+#stage{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box;background:radial-gradient(circle at top left,#546173,#1f232b 56%)}
+#scaler{position:relative;width:calc(402px * var(--s,1));height:calc(874px * var(--s,1));flex:none}
+#device{position:absolute;left:0;top:0;width:402px;height:874px;transform:scale(var(--s,1));transform-origin:0 0;border-radius:58px;overflow:hidden;box-shadow:0 0 0 9px #101216,0 0 0 10px rgba(255,255,255,.14),0 30px 70px rgba(0,0,0,.5)}
+#phone{position:relative;width:402px;height:874px;overflow:hidden}
+@media (max-width:640px){#stage{padding:0}#device{border-radius:0;box-shadow:none}}
+
+/* ---------- 월페이퍼 / 공통 레이어 ---------- */
+.wall{position:absolute;inset:0;background:radial-gradient(circle at 15% 18%,rgba(255,255,255,.5),transparent 32%),radial-gradient(circle at 85% 82%,rgba(100,126,199,.32),transparent 30%),linear-gradient(160deg,#819caf 0%,#d9c6c7 55%,#8496b6 100%)}
+.layer{position:absolute;inset:0}
+.homehit{position:absolute;left:0;right:0;bottom:0;height:44px;z-index:55;cursor:pointer}
+.app{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:62px;box-sizing:border-box}
+.appscroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.appscroll::-webkit-scrollbar{display:none}
+.avimg{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.sub{display:block;font:400 13px/17px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e);margin-top:1px}
+.pad{padding:4px 16px 10px}
+
+/* ---------- 잠금화면 / 암호 ---------- */
+.lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:80px 8px 54px;color:#fff;text-align:center}
+.lock-date{font:600 20px/24px var(--ios-font);opacity:.92}
+.lock-time{font:200 98px/1.05 var(--ios-font);letter-spacing:-3px;margin-top:2px}
+.lock-notifs{width:100%;margin-top:34px;text-align:left}
+.unlocktip{margin-top:auto;background:none;border:0;color:#fff;font:500 14px/18px var(--ios-font);opacity:.9;padding:10px 14px}
+.lock-actions{width:100%;display:flex;justify-content:space-between;padding:0 38px;box-sizing:border-box;margin-top:10px}
+.lock-actions .ios-button{width:50px;padding:0;border-radius:50%;color:#fff}
+.pin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:118px 40px 0;color:#fff;box-sizing:border-box}
+.pin-title{font:500 21px/26px var(--ios-font);margin-bottom:26px}
+.pin-dots{display:flex;gap:20px;margin-bottom:12px}
+.pin-dots span{width:13px;height:13px;border:1.5px solid #fff;border-radius:50%}
+.pin-dots .filled{background:#fff}
+.pin-error{height:22px;font:400 14px/22px var(--ios-font);margin-bottom:14px}
+.pin-grid{display:grid;grid-template-columns:repeat(3,78px);gap:16px 24px}
+.pin-grid button{width:78px;height:78px;border-radius:50%;border:0;color:#fff;font:300 34px/1 var(--ios-font);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.pin-grid button small{font:600 10px/10px var(--ios-font);letter-spacing:2px;opacity:.9;height:10px}
+.pin-grid button:active{filter:brightness(1.4)}
+.pin-grid .txt{background:none;font:500 18px/1 var(--ios-font);box-shadow:none}
+.pin-grid .ghost{visibility:hidden}
+
+/* ---------- 홈 화면 ---------- */
+.home{position:absolute;inset:0;padding:76px 22px 0;box-sizing:border-box}
+.widgets{display:flex;gap:20px;justify-content:center}
+.appgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 0;margin-top:26px;justify-items:center}
+.appgrid .ios-app,.dock .ios-app{cursor:pointer}
+.ios-app__icon img{width:100%;height:100%;object-fit:cover}
+.pages{position:absolute;left:0;right:0;bottom:134px;display:flex;justify-content:center;gap:8px}
+.pages span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.45)}
+.pages span:first-child{background:#fff}
+.dock{position:absolute;left:18px;right:18px;bottom:30px;height:96px;border-radius:40px;display:flex;justify-content:space-around;align-items:center;padding:0 12px}
+.dock .ios-app__label{display:none}
+.home .ios-app__label{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+.wg-eyebrow-red{color:var(--ios-red)}
+.wg-music{display:flex;flex-direction:column;height:100%}
+.wg-art{width:46px;height:46px;border-radius:10px;overflow:hidden;margin:8px 0 10px}
+.wg-art img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- 카카오톡 ---------- */
+.kakao-chat{flex:1;min-height:0;display:flex;flex-direction:column;background:#b2c7da}
+.kakao-chat .ios-messages{flex:1;overflow-y:auto;justify-content:flex-end}
+.kakao-chat .ios-bubble{white-space:pre-line}
+.kakao-chat .ios-bubble[data-from="me"]{background:#fee500!important;color:#1a1700!important}
+.kakao-chat .ios-bubble[data-from="them"]{background:#fff!important;color:#111!important}
+.kakao-chat .ios-messages__time{color:rgba(255,255,255,.95)}
+.chatbg{background:#b2c7da}
+.preview{display:block;max-width:215px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:400 14px/18px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e);margin-top:1px}
+
+/* ---------- 사진 ---------- */
+.photogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.photogrid button{border:0;padding:0;aspect-ratio:1/1;overflow:hidden;background:var(--ios-quaternary-fill,#eee)}
+.photogrid img{width:100%;height:100%;object-fit:cover;display:block}
+.viewer-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:6px 14px}
+.viewer-stage img{max-width:100%;max-height:100%;border-radius:22px}
+.viewer-cap{padding:6px 22px 8px;text-align:center;font:400 14px/19px var(--ios-font);color:rgba(255,255,255,.72)}
+.ios-bubble{white-space:pre-line}
+
+/* ---------- Instagram ---------- */
+.insta-head{padding:6px 16px 14px}
+.profileCard{display:flex;align-items:center;gap:14px}
+.profileStats{display:flex;gap:16px;margin-left:auto;font:400 13px/17px var(--ios-font);text-align:center}
+.profileStats b{display:block;font:700 17px/21px var(--ios-font)}
+.bio{margin-top:12px;font:400 14px/20px var(--ios-font)}
+.insta-btns{display:flex;gap:8px;margin-top:12px}
+.insta-btns .ios-button{flex:1}
+.storyBar{display:flex;gap:16px;padding:6px 16px 14px;overflow-x:auto}
+.storyBar::-webkit-scrollbar{display:none}
+.story{min-width:68px;text-align:center;font:400 12px/15px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e)}
+.ring{width:64px;height:64px;padding:2px;border-radius:50%;background:linear-gradient(135deg,#ffd85e,#ff3d77,#7a47ff);margin:0 auto 6px;box-sizing:border-box}
+.ring>div{width:100%;height:100%;border-radius:50%;padding:2px;background:var(--ios-background,#fff);box-sizing:border-box}
+.ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.instaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+.instaGrid img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+
+/* ---------- X ---------- */
+.tweet{padding:12px 16px;border-top:.5px solid var(--ios-separator,#ddd);display:flex;gap:12px;align-items:flex-start}
+.tweet:first-child{border-top:0}
+.tweet .tb{flex:1;min-width:0}
+.tweet .user{font:700 15px/20px var(--ios-font)}
+.tweet .user span{font-weight:400;color:var(--ios-secondary-label,#8a8a8e)}
+.tweet .body{font:400 15px/21px var(--ios-font);margin-top:2px}
+.tweet .meta{font:400 13px/17px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e);margin-top:6px}
+
+/* ---------- Weverse ---------- */
+.wvHero{position:relative;padding:18px 20px 20px;background:linear-gradient(135deg,#202326,#101114);color:#fff;overflow:hidden;min-height:176px}
+.wvHero .bglogo{position:absolute;right:20px;top:20px;width:150px;opacity:.18}
+.wvHero h2{font:800 42px/1 var(--ios-font);margin:16px 0 12px}
+.wvHero .hs{opacity:.86;font:400 14px/18px var(--ios-font)}
+.membership{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);font:500 14px/18px var(--ios-font)}
+.membership .shield{width:18px;height:18px;border-radius:50%;background:#775df3;display:grid;place-items:center;color:#fff;font-size:12px}
+.wvCard{border-bottom:10px solid var(--ios-grouped-background,#f2f2f7);padding:16px}
+.wvMeta{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.miniava{width:42px;height:42px;border-radius:50%;overflow:hidden;flex:none}
+.miniava img{width:100%;height:100%;object-fit:cover}
+.metaTop{font:700 15px/20px var(--ios-font)}
+.metaSub{font:400 13px/17px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e)}
+.caption{font:650 21px/27px var(--ios-font);margin:4px 0 12px}
+.screenShot{border-radius:20px;overflow:hidden;border:1px solid var(--ios-separator,#e5e5ea)}
+.screenShot img{width:100%;display:block}
+.livecard{display:flex;gap:12px;padding:16px;align-items:flex-start}
+.livecard .thumb{width:148px;border-radius:16px;overflow:hidden;flex:none}
+.livecard .thumb img{width:100%;display:block}
+.livecard .lt{font:700 18px/24px var(--ios-font)}
+.pill{display:inline-flex;font:500 12px/16px var(--ios-font);padding:4px 9px;background:#eef2ff;color:#4f46e5;border-radius:999px;margin-top:8px}
+
+/* ---------- 음악 ---------- */
+.musicHero{padding:8px 16px 16px;background:linear-gradient(180deg,#e8d7dc,transparent)}
+.playlistHead{display:flex;gap:16px;align-items:flex-end}
+.playlistArt{width:132px;height:132px;border-radius:16px;overflow:hidden;box-shadow:0 14px 26px rgba(0,0,0,.2);flex:none}
+.playlistArt img{width:100%;height:100%;object-fit:cover;display:block}
+.playlistTitle{font:800 26px/30px var(--ios-font);white-space:pre-line}
+.playlistMeta{font:400 13px/18px var(--ios-font);color:var(--ios-secondary-label,#6d6d72);margin-top:8px}
+.playbtns{display:flex;gap:10px;padding:0 16px 8px}
+.playbtns .ios-button{flex:1}
+.track{display:flex;align-items:center;gap:12px;padding:8px 16px;border-top:.5px solid var(--ios-separator,#ddd);min-height:64px;box-sizing:border-box}
+.track .no{width:18px;text-align:right;color:var(--ios-secondary-label,#8a8a8e);font:400 15px/20px var(--ios-font)}
+.track .cov{width:48px;height:48px;border-radius:8px;overflow:hidden;flex:none}
+.track .cov img{width:100%;height:100%;object-fit:cover;display:block}
+.track .tt{font:500 16px/21px var(--ios-font)}
+
+/* ---------- 메모 / 카메라 ---------- */
+.diaryPage{width:100%;height:auto;display:block;margin-bottom:14px;border-radius:4px}
+.notes-title{font:700 26px/32px var(--ios-font);margin:6px 0 18px}
+.cam{position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,#3a4350,#0c0d10 70%);display:flex;flex-direction:column;color:#fff}
+.cam-view{flex:1;margin-top:62px;border-radius:0;background:linear-gradient(160deg,#5d7385,#a8999a 55%,#566681);opacity:.92}
+.cam-bar{height:206px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:18px;box-sizing:border-box;background:#000}
+.cam-mode{font:600 14px/18px var(--ios-font);color:#ffd60a;letter-spacing:.3px}
+.cam-row{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 38px;box-sizing:border-box;margin-top:18px}
+.shutter{width:74px;height:74px;border-radius:50%;border:4px solid #fff;padding:0;background:transparent;position:relative}
+.shutter:after{content:'';position:absolute;inset:4px;border-radius:50%;background:#fff}
+.shutter:active:after{inset:7px}
+.cam-thumb{width:48px;height:48px;border-radius:10px;overflow:hidden;border:1.5px solid rgba(255,255,255,.4)}
+.cam-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.cam-flip{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;border:0;color:#fff}
+.cal-bar{width:4px;align-self:stretch;border-radius:2px;flex:none;margin:6px 0}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="stage"><div id="scaler"><div id="device"><div id="phone" class="ios-surface"></div></div></div></div>
+<script>
+const PHOTOS=['001.jpg','002.jpg','003.jpg','004.jpg','005.jpg','006.jpg','007.jpg','008.jpg','009.jpg','010.jpg','011.jpg','012.jpg','013.jpg','weverse_1-297390107.jpg','weverse_1-298105017.jpg','weverse_1-298105018.jpg','weverse_3-336639365.jpg','weverse_3-339099838.jpg','weverse_4-328094447.jpg'];
+const ICONS={phone:'assets/icons/ios26_phone.png',kakao:'assets/icons/icon_kakao.png',photos:'assets/icons/icon_photos.svg',ai:'assets/icons/icon_chatgpt.png',instagram:'assets/icons/icon_instagram.png',x:'assets/icons/ios26_x.png',weverse:'assets/icons/icon_weverse.png',music:'assets/icons/ios26_music.png',calendar:'assets/icons/ios26_calendar.png',notes:'assets/icons/ios26_notes.png',safari:'assets/icons/ios26_safari.png',camera:'assets/icons/ios26_camera.png',settings:'assets/icons/icon_settings.svg',messages:'assets/icons/ios26_messages.png'};
+const state={view:'lock',pin:'',app:null,detail:null,photoIndex:null,weverseTab:'artist',xTab:'search',oldChat:false,aiThread:null,toast:null,callTab:'all',hinted:false};
+const calls=[
+  ['신신신정환','오늘 오전 9:18','부재중'],['엄마','어제 오후 8:42','발신'],['누나','어제 오후 6:03','수신'],['010-3114-1106','어제 오후 4:17','부재중'],['누나','그제 오후 11:20','수신'],['엄마','그제 오후 7:55','발신'],['신신신정환','그제 오후 2:34','수신'],['070-3827-1003','10월 16일','부재중']
+];
+const kakaoRooms=[
+  {name:'신신신정환',preview:'수업 끝나고 연락해 ㅋㅋ',time:'오전 9:20',badge:1,avatar:'assets/photos/009.jpg'},
+  {name:'누나',preview:'너 내 충전기 가져갔지',time:'어제',badge:0,avatar:'assets/photos/012.jpg'},
+  {name:'엄마',preview:'저녁 먹고 들어와',time:'어제',badge:0,avatar:'assets/photos/013.jpg'},
+  {name:'무용과 동기들',preview:'내일 연습실 3시 맞지?',time:'월요일',badge:0,avatar:'assets/photos/004.jpg'},
+];
+const kakaoCurrent=[
+['day','오늘'],['other','지훈아 수업 끝났냐'],['me','아직\n왜'],['other','왜긴\n그냥 보고싶어서'],['me','개수작 부리지마셈'],['other','?'],['other','아니 진짜로'],['me','...'],['other','수업 끝나고 연락해 ㅋㅋ'],['me','네네']
+];
+const kakaoPast=[['day','1교시 듣던 날'],['other','읽씹?'],['other','야 한지훈 자냐? 일어나라'],['other','보이스톡 해요'],['me','미쳤어요???'],['other','형한테 미쳤냐니...'],['me','저 수업중이라고요'],['other','전화 못 받아 그럼?'],['me','...형 학교 안 다녔어요?'],['other','대학은 안 갔지\n무시하냐?'],['me','아 에바\n뭔 또 무시예요..']];
+const aiThreads=[
+{title:'질투하는 게 이상한 거야?',sub:'친도랑 제일 최근에 한 대화',messages:[['me','친도야'],['bot','왜 지훈아 ㅋㅋ'],['me','상대가 다른 사람이랑 자꾸 엮이는데 신경쓰이면 어떡함'],['bot','그 사람이 진짜 뭘 한 건 아니고, 주변에서 자꾸 엮는 거면 더 애매하지. 머리로는 이해해도 기분은 별개일 수 있어.'],['me','걔 잘못은 아닌데\n짜증남'],['bot','그건 질투가 이상한 게 아니라 네가 그 관계를 진지하게 생각하고 있다는 뜻일 수도 있어.'],['me','말하면 찌질해보일까'],['bot','꼭 전부 말할 필요는 없어.\n"나 좀 서운했어" 정도만 말해도 충분해. 네가 뭘 서운해하는지 상대는 알아야 풀 수 있으니까.']]},
+{title:'남자친구가 너무 바쁠 때',sub:'답답한데 이해도 돼서 더 싫음',messages:[['me','친도 바쁜 사람이랑 연애하면 원래 이렇게 연락을 못해?'],['bot','직업이나 일정에 따라 그럴 수 있어. 근데 연락 빈도보다 중요한 건 둘이 납득 가능한 방식이 있느냐야.'],['me','얘는 진짜 바쁨\n내가 이해해야 되는 건 알겠는데'],['bot','이해해주는 거랑 네가 서운하지 않아야 하는 건 다른 얘기야. 어떤 순간이 제일 서운한지 먼저 정리해볼래?'],['me','그냥 나 혼자 기다리는 느낌'],['bot','그럼 그걸 그대로 말해보자. 비난이 아니라 설명으로.']]},
+{title:'남자가 남자를 좋아할 수도 있나',sub:'초반의 너무 솔직한 검색',messages:[['me','친도'],['bot','응 왔어.'],['me','남자가 남자 좋아할수도 있냐'],['bot','물론이지. 성별과 상관없이 누군가에게 끌리거나 사랑하는 감정은 충분히 자연스러운 일이야.'],['me','아오'],['bot','놀랄 수는 있어도 이상한 건 아니야 지훈아 ㅋㅋ']]},
+{title:'먼저 연락하면 지는거냐',sub:'자존심과 후회 사이',messages:[['me','친도'],['bot','응 왜'],['me','먼저 연락하면 지는거냐'],['bot','연애가 가위바위보도 아니고 ㅋㅋ\n정말 연락하고 싶은데 자존심 때문에 참는 중이야?'],['me','아니 그냥'],['bot','그냥이라고 쓰는 사람 치고 그냥인 사람 별로 없더라. 하고 싶으면 해.']]},
+];
+const instaPosts=['009.jpg','001.jpg','002.jpg','003.jpg','010.jpg','011.jpg','012.jpg','013.jpg','004.jpg'];
+const xTweets={
+ search:[
+  ['실트','신유 열애설','지훈이 예전에 찾아봤던 검색어 흔적'],
+  ['실트','신유 성지유','찌라시 카드뉴스 때문에 더 마음 상했던 날'],
+  ['실트','신유 핑크머리','컴백날 반응은 이것뿐이라 더 짜증났음']
+ ],
+ scandal:[
+  ['@peachsoda_','신유 열애설 또 뭐야;;; 사진 각도 너무 애매함','10.03 · 21 ♥ 98'],
+  ['@1sec_fan','난 그냥 회사 공지 나올 때까지 가만히 있을래','10.03 · 8 ♥ 54'],
+  ['@mylittleshy','근데 카드뉴스 진짜 억지 같은데...','10.03 · 16 ♥ 77'],
+  ['@jellybear','숙소 앞 사진이 제일 찜찜하긴 함','10.03 · 12 ♥ 45']
+ ]
+};
+const playlist=[
+  ['imase','18','assets/music/18.svg'],
+  ['실리카겔 · So!YoOn!','Tic Tak Tok','assets/music/tic_tak_tok.svg'],
+  ['1SECOND','One More Second','assets/music/one_more_second.svg'],
+  ['Liana Flores','recently','assets/music/recently.svg'],
+  ['Fujii Kaze','You','assets/music/you.svg'],
+  ['도시고독','비디오 환각','assets/music/video_hallucination.svg'],
+  ['Billie Eilish','I love you','assets/music/i_love_you.svg'],
+  ['TWS','Fire Escape','assets/music/fire_escape.svg']
+];
+const diaryEntries=[{title:'다섯 번째 일기',pages:['assets/diary1.jpg']},{title:'일곱 번째 일기 : 옛날 이야기',pages:['assets/diary2.jpg','assets/diary3.jpg']},{title:'여섯 번째 일기',pages:['assets/diary4.jpg']}];
+const todayEvents=[['전공 수업','var(--ios-indigo)'],['연습','var(--ios-green)'],['저녁 약속','var(--ios-red)']];
+
+/* ---------- 헬퍼 ---------- */
+function q(sel){return document.querySelector(sel)}
+let flags={};
+const I=(n,s)=>`<i class="ios-icon ios-icon--${n}"${s?` style="${s}"`:''}></i>`;
+const av=(src,size,extra='')=>`<span class="ios-avatar" style="--size:${size}px;${extra}"><img class="avimg" src="${src}" alt=""></span>`;
+const statusBar=(white)=>`<div class="ios-island"></div><div class="ios-statusbar"${white?' style="color:#fff"':''}><div class="ios-statusbar__row"><span class="ios-statusbar__time">9:41</span><span class="ios-statusbar__island-gap"></span><span class="ios-statusbar__icons">${I('cellular')}${I('wifi')}<span class="ios-battery" style="--level:100"><i></i></span></span></div></div>`;
+const backBtn=(onclick)=>`<button class="ios-barbutton" aria-label="뒤로" onclick="${onclick}">${I('chevron-left')}</button>`;
+const navInline=(title,lead='',trail='')=>`<header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading">${lead}</div><h1 class="ios-navbar__inline-title">${title}</h1><div class="ios-navbar__trailing">${trail}</div></div></header>`;
+const navLarge=(title,lead='',trail='')=>`<header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading">${lead}</div><div class="ios-navbar__trailing">${trail}</div></div><h1 class="ios-navbar__large-title">${title}</h1></header>`;
+const homeTail=()=>`<div class="homehit" onclick="goHome()"></div><div class="ios-home-indicator"></div>`;
+const appWrap=(inner,extra='')=>`<div class="app">${inner}</div>${extra||homeTail()}`;
+const segmented=(name,items,active,fn)=>`<div class="ios-segmented" style="--n:${items.length}" role="radiogroup">${items.map(([id,label])=>`<label><input type="radio" name="${name}" ${id===active?'checked':''} onchange="${fn}('${id}')">${label}</label>`).join('')}</div>`;
+function flash(msg){state.toast=msg;render();setTimeout(()=>{if(state.toast===msg){state.toast=null;render();}},2800);}
+function showToast(msg){flash(msg)}
+
+/* ---------- 이동 ---------- */
+function openApp(id){state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='artist';if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
+function goHome(){state.view='home';state.app=null;state.detail=null;state.photoIndex=null;render();}
+function openChat(name){state.detail=name;render();}
+function openPhoto(i){state.photoIndex=i;render();}
+function openAIThread(i){state.aiThread=i;render();}
+function switchWeverse(tab){state.weverseTab=tab;render();}
+function switchX(tab){state.xTab=tab;render();}
+function switchCall(tab){state.callTab=tab;render();}
+function contactDetail(i){state.detail='call'+i;render();}
+function beginUnlock(){state.view='passcode';state.pin='';state.toast=null;render();}
+function pressPin(n){if(state.pin.length>=4)return;state.pin+=String(n);if(state.pin.length===4){if(state.pin==='1107'){state.view='home';state.pin='';state.toast=null;render();}else{state.pin='';render();const e=q('.pin-error');if(e)e.textContent='암호가 올바르지 않습니다';}}else render();}
+function pinBack(){if(state.pin.length){state.pin=state.pin.slice(0,-1);render();}else{state.view='lock';render();}}
+
+/* ---------- 잠금화면 / 암호 ---------- */
+function lockHTML(){flags.wall=true;flags.white=true;
+return `<div class="lock"><div class="lock-date">10월 22일 목요일</div><div class="lock-time">9:41</div>
+<div class="lock-notifs"><div class="ios-notification-list"><div class="ios-notification" onclick="beginUnlock()" style="cursor:pointer"><span class="ios-notification__icon"><img src="${ICONS.kakao}" alt=""></span><div class="ios-notification__body"><div class="ios-notification__head"><span class="ios-notification__title">신신신정환</span><span class="ios-notification__time">지금</span></div><p class="ios-notification__text">지훈아 수업 끝났냐<br>오늘은 읽씹하지 마셈 ㅋㅋ</p></div></div></div></div>
+<button class="unlocktip" onclick="beginUnlock()">위로 쓸어올려 잠금 해제</button>
+<div class="lock-actions"><button class="ios-button" data-variant="glass" data-size="lg" aria-label="손전등">${I('flashlight','--w:22px;--h:22px')}</button><button class="ios-button" data-variant="glass" data-size="lg" aria-label="카메라">${I('camera','--w:24px;--h:22px')}</button></div></div>
+<div class="ios-home-indicator" data-tone="white"></div>`;}
+function pinHTML(){flags.wall=true;flags.white=true;
+const letters={2:'ABC',3:'DEF',4:'GHI',5:'JKL',6:'MNO',7:'PQRS',8:'TUV',9:'WXYZ'};
+const key=n=>`<button class="ios-glass-clear" onclick="pressPin(${n})">${n}<small>${letters[n]||''}</small></button>`;
+return `<div class="pin"><div class="pin-title">암호 입력</div><div class="pin-dots">${[0,1,2,3].map(i=>`<span class="${state.pin.length>i?'filled':''}"></span>`).join('')}</div><div class="pin-error"></div>
+<div class="pin-grid">${[1,2,3,4,5,6,7,8,9].map(key).join('')}<button class="ghost"></button>${key(0)}<button class="txt" onclick="pinBack()">${state.pin.length?'삭제':'취소'}</button></div></div>
+<div class="ios-home-indicator" data-tone="white"></div>`;}
+
+/* ---------- 홈 ---------- */
+function appIcon(id,label,badge=''){return `<a href="#" class="ios-app" aria-label="${label}" onclick="openApp('${id}');return false"><span class="ios-app__icon"><img data-style="default" src="${ICONS[id]}" alt=""></span><span class="ios-app__label">${label}</span>${badge?`<span class="ios-badge">${badge}</span>`:''}</a>`;}
+function homeHTML(){flags.wall=true;flags.white=true;
+return `<div class="home"><div class="widgets">
+<div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card"><div class="ios-widget__eyebrow wg-eyebrow-red">오늘 일정</div><div class="ios-widget__big" style="margin-top:6px">3</div><div style="font:500 13px/17px var(--ios-font);margin-top:6px">전공 수업 · 연습 · 저녁 약속</div></div></div>
+<div class="ios-widget" data-size="small" data-standalone data-glass><div class="ios-widget__card wg-music"><div class="ios-widget__eyebrow wg-eyebrow-red">최근 재생</div><div class="wg-art"><img src="assets/music/one_more_second.svg" alt=""></div><div style="font:600 15px/19px var(--ios-font)">One More Second</div><div style="font:400 12px/16px var(--ios-font);color:var(--ios-secondary-label)">1SECOND</div></div></div>
+</div>
+<div class="appgrid">${appIcon('kakao','카카오톡','1')}${appIcon('photos','사진')}${appIcon('ai','ChatGPT')}${appIcon('instagram','Instagram')}${appIcon('x','X')}${appIcon('weverse','Weverse')}${appIcon('music','음악')}${appIcon('calendar','캘린더')}</div></div>
+<div class="pages"><span></span><span></span></div>
+<div class="dock ios-glass">${appIcon('phone','전화')}${appIcon('safari','Safari')}${appIcon('notes','메모')}${appIcon('camera','카메라')}</div>
+<div class="ios-home-indicator" data-tone="white"></div>`;}
+
+/* ---------- 전화 ---------- */
+function infoRow(title,text){return `<div class="ios-row" data-tall><div class="ios-row__body"><span class="ios-row__title">${title}<span class="sub">${text}</span></span></div></div>`;}
+function phoneHTML(){flags.grouped=true;
+if(typeof state.detail==='string'&&state.detail.startsWith('call')){const i=Number(state.detail.slice(4));const c=calls[i];const isJh=c[0]==='신신신정환';
+return appWrap(navInline('연락처',backBtn("state.detail=null;render()"))+`<div class="appscroll"><div style="display:flex;flex-direction:column;align-items:center;padding:14px 16px 8px">${av(isJh?'assets/photos/009.jpg':'assets/photos/012.jpg',92)}<div style="font:700 28px/34px var(--ios-font);margin-top:12px">${c[0]}</div><div style="font:400 15px/20px var(--ios-font);color:var(--ios-secondary-label);margin-top:3px">번호 비공개</div></div>
+<div style="display:flex;gap:10px;padding:10px 16px 6px"><button class="ios-button" data-variant="gray" data-size="lg" style="flex:1">영상통화</button><button class="ios-button" data-variant="gray" data-size="lg" style="flex:1">메시지</button><button class="ios-button" data-variant="gray" data-size="lg" style="flex:1">공유</button></div>
+<div class="ios-list" style="padding:12px 0"><section class="ios-list__section"><h2 class="ios-list__header">메모</h2><div class="ios-list__group">${infoRow('관계',isJh?'저장명 바뀐 흔적 있음 · 원래는 신정환':'가족')}${infoRow('이스터 에그',isJh?'말하지 않아도 다 아는 사람':'늘 저녁 챙겨먹으라고 하는 사람')}</div></section></div></div>`);}
+const rows=calls.map((c,i)=>[c,i]).filter(([c])=>state.callTab==='all'||c[2]==='부재중');
+return appWrap(navLarge('최근 통화')+`<div class="pad">${segmented('calltab',[['all','전체'],['missed','부재중']],state.callTab,'switchCall')}</div><div class="appscroll"><div class="ios-list" style="padding:6px 0 20px"><section class="ios-list__section"><div class="ios-list__group">${rows.map(([c,i])=>`<a href="#" class="ios-row" data-tall onclick="contactDetail(${i});return false"><div class="ios-row__body"><span class="ios-row__title"${c[2]==='부재중'?' data-tone="destructive"':''}>${c[0]}<span class="sub">${c[2]}</span></span><span class="ios-row__detail">${c[1]}</span>${I('chevron-right')}</div></a>`).join('')}</div></section></div></div>`);}
+
+/* ---------- 카카오톡 ---------- */
+function kakaoHTML(){
+if(state.detail==='신신신정환'){flags.chat=true;const msgs=state.oldChat?kakaoPast:kakaoCurrent;
+return appWrap(navInline('신신신정환',backBtn("state.detail=null;render()"),`<button class="ios-barbutton" onclick="state.oldChat=!state.oldChat;render()">${state.oldChat?'현재 대화':'과거 대화'}</button>`).replace('<header','<header style="background:var(--ios-background,#fff)"')+`<div class="kakao-chat"><div class="ios-messages">${msgs.map(m=>m[0]==='day'?`<p class="ios-messages__time"><b>${m[1]}</b></p>`:`<div class="ios-bubble" data-from="${m[0]==='me'?'me':'them'}">${m[1]}</div>`).join('')}</div>
+<div class="ios-compose"><button class="ios-barbutton" aria-label="추가">${I('plus')}</button><label class="ios-compose__field"><input placeholder="메시지 보내기" aria-label="메시지" readonly><button class="ios-compose__send" aria-label="보내기">${I('arrow-up','--w:18px;--h:18px')}</button></label></div><div style="height:34px"></div></div>`);}
+flags.grouped=true;
+return appWrap(navLarge('채팅')+`<div class="pad"><label class="ios-search" data-variant="filled">${I('search')}<input type="search" placeholder="검색" aria-label="검색"></label></div><div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group" data-variant="plain">${kakaoRooms.map(r=>`<a href="#" class="ios-row" data-tall style="padding-left:16px" onclick="openChat('${r.name}');return false">${av(r.avatar,50,'margin-right:12px')}<div class="ios-row__body"><span class="ios-row__title">${r.name}<span class="preview">${r.preview}</span></span><span class="ios-row__detail">${r.time}</span>${r.badge?`<span class="ios-badge" data-inline>${r.badge}</span>`:''}</div></a>`).join('')}</div></section></div></div>`);}
+
+/* ---------- 사진 ---------- */
+function photosHTML(){
+if(state.photoIndex!==null){flags.dark=true;flags.white=true;const fn=PHOTOS[state.photoIndex];const cap=fn.includes('weverse')?'위버스에 올라온 사진 저장본':'최근 항목';
+return `<div class="app">${navInline(`${state.photoIndex+1} / ${PHOTOS.length}`,`<button class="ios-barbutton" onclick="state.photoIndex=null;render()">완료</button>`)}<div class="viewer-stage"><img src="assets/photos/${fn}" alt=""></div><div class="viewer-cap">${cap}${fn==='010.jpg'?' · 이전에 삭제했다가 다시 복구한 사진':''}</div>
+<div style="padding:6px 16px 46px"><div class="ios-toolbar" style="width:100%"><button class="ios-barbutton" aria-label="공유">${I('share')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="즐겨찾기">${I('star')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="삭제">${I('trash-2')}</button></div></div></div>${homeTail()}`;}
+return appWrap(navLarge('사진')+`<div class="pad">${segmented('phtab',[['recent','최근 항목'],['fav','즐겨찾기'],['del','최근 삭제된 항목']],'recent','noop')}</div><div class="appscroll"><div class="photogrid">${PHOTOS.map((p,i)=>`<button onclick="openPhoto(${i})"><img src="assets/photos/${p}" alt=""></button>`).join('')}</div></div>`);}
+function noop(){}
+
+/* ---------- ChatGPT(친도) ---------- */
+function aiHTML(){flags.grouped=true;
+if(state.aiThread!==null){flags.grouped=false;const t=aiThreads[state.aiThread];
+return appWrap(navInline('친도',backBtn("state.aiThread=null;render()"))+`<div class="appscroll" style="display:flex;flex-direction:column"><div class="ios-messages" style="flex:1;justify-content:flex-end">${t.messages.map(m=>`<div class="ios-bubble" data-from="${m[0]==='me'?'me':'them'}">${m[1]}</div>`).join('')}</div></div>
+<div class="ios-compose"><button class="ios-barbutton" aria-label="추가">${I('plus')}</button><label class="ios-compose__field"><input placeholder="미리 작성된 상담 기록" aria-label="시뮬레이션 대화" readonly><button class="ios-compose__send" aria-label="보내기" onclick="showToast('이번 버전은 미리 작성된 친도 대화로 구성했어.');return false">${I('arrow-up','--w:18px;--h:18px')}</button></label></div><div style="height:34px"></div>`);}
+return appWrap(navLarge('ChatGPT')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group">${aiThreads.map((t,i)=>`<a href="#" class="ios-row" data-tall onclick="openAIThread(${i});return false"><div class="ios-row__body"><span class="ios-row__title">${t.title}<span class="sub">${t.sub}</span></span>${I('chevron-right')}</div></a>`).join('')}</div></section></div></div>`);}
+
+/* ---------- Instagram ---------- */
+function instagramHTML(){
+return appWrap(navInline('jihoon.h')+`<div class="appscroll"><div class="insta-head"><div class="profileCard">${av('assets/photos/003.jpg',82)}<div><div style="font:700 21px/26px var(--ios-font)">jihoon.h</div><div style="font:400 13px/17px var(--ios-font);color:var(--ios-secondary-label)">한지훈</div></div><div class="profileStats"><div><b>12</b>게시물</div><div><b>187</b>팔로워</div><div><b>142</b>팔로잉</div></div></div>
+<div class="bio"><b>무용 / 그냥 사는 중</b><br>연습실, 학교, 가끔 반려견.<br><span style="color:var(--ios-blue)">팔로잉에서 지후 선배는 사라짐.</span></div>
+<div class="insta-btns"><button class="ios-button" data-variant="gray">프로필 편집</button><button class="ios-button" data-variant="gray">프로필 공유</button></div></div>
+<div class="storyBar">${[['011','연습'],['012','두리'],['013','초코'],['009','아카이브']].map(s=>`<div class="story"><div class="ring"><div><img src="assets/photos/${s[0]}.jpg" alt=""></div></div>${s[1]}</div>`).join('')}</div>
+<div class="instaGrid">${instaPosts.map(p=>`<img src="assets/photos/${p}" alt="">`).join('')}</div></div>`);}
+
+/* ---------- X ---------- */
+function xHTML(){flags.grouped=true;let inner='';
+if(state.xTab==='search'){inner=`<div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group">${xTweets.search.map(t=>`<div class="ios-row" data-tall><div class="ios-row__body"><span class="ios-row__title">${t[1]}<span class="sub">${t[2]}</span></span><button class="ios-button" data-variant="plain" data-size="sm" onclick="switchX('scandal')">보기</button></div></div>`).join('')}</div></section></div>`;}
+else{inner=`<div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group">${xTweets.scandal.map(t=>`<div class="tweet"><span class="ios-avatar" style="--size:40px;flex:none" role="img" aria-label="${t[0]}">${t[0].replace('@','').charAt(0).toUpperCase()}</span><div class="tb"><div class="user">${t[0]} <span>· 팬 계정</span></div><div class="body">${t[1]}</div><div class="meta">${t[2]}</div></div></div>`).join('')}</div></section></div>`;}
+return appWrap(navInline('X')+`<div class="pad"><label class="ios-search" data-variant="filled">${I('search')}<input type="search" value="신유 열애설" aria-label="검색" readonly></label></div><div class="pad" style="padding-top:0">${segmented('xtab',[['search','검색 기록'],['scandal','팬 반응']],state.xTab,'switchX')}</div><div class="appscroll">${inner}</div>`);}
+
+/* ---------- Weverse ---------- */
+function weverseHTML(){let feed='';
+const post=(src,when,cap,img)=>`<div class="wvCard"><div class="wvMeta"><div class="miniava"><img src="assets/photos/${src}" alt=""></div><div><div class="metaTop">귀염둥이 딸기 오빠 🍓</div><div class="metaSub">${when}</div></div></div><div class="caption">${cap}</div><div class="screenShot"><img src="assets/weverse/${img}" alt=""></div></div>`;
+if(state.weverseTab==='artist'){feed=post('009.jpg','10.16. 17:13','금요일 파이팅!','post1.png')+post('001.jpg','09.02. 14:06','OOTD','post2.png')+post('002.jpg','10.17. 22:24','첫만남 신유','post3.png')+post('003.jpg','09.23. 22:57','즐거운 추석을 보내세용','post4.png');}
+else if(state.weverseTab==='live'){feed=`<a class="livecard" href="https://weverse.io/tws/live/2-180502498?hl=ko" target="_blank" rel="noreferrer"><div class="thumb"><img src="assets/weverse/live_thumb.png" alt=""></div><div><div class="lt">제철 신(유) 🦐</div><div class="sub" style="margin-top:8px">09.24. 14:09 · 재생 278K · 채팅 66.6K</div><div class="pill">LIVE 링크 열기 ↗</div><div style="margin-top:10px;font:400 14px/20px var(--ios-font);color:var(--ios-secondary-label)">썸네일을 누르면 실제 위버스 라이브 페이지로 이동해.</div></div></a>`;}
+else{feed=`<div style="padding:26px 18px;color:var(--ios-secondary-label);font:400 15px/22px var(--ios-font)">${state.weverseTab} 탭은 다음 버전에서 더 채울 예정이야.</div>`;}
+const tabs=[['highlight','Highlight'],['fan','Fan'],['artist','Artist'],['fanletter','Fan Letter'],['media','Media'],['live','LIVE'],['notice','Notice'],['shop','Shop']];
+return appWrap(navInline('1SECOND',`<button class="ios-barbutton" aria-label="메뉴">${I('grid')}</button>`,`<div class="ios-barbutton-group"><span class="ios-badged"><button class="ios-barbutton" aria-label="알림">${I('bell')}</button><span class="ios-badge" data-size="sm">99+</span></span><button class="ios-barbutton" aria-label="메시지">${I('plane')}</button></div>`)+`<div class="appscroll"><div class="wvHero"><img class="bglogo" src="assets/one_second_logo.svg" alt=""><div class="hs">4.2만 members · ✓ 가입 완료</div><h2>1SECOND</h2><span class="membership"><span class="shield">♡</span>Membership</span></div>
+<div class="ios-chips" style="padding-top:12px;padding-bottom:12px;overflow-x:auto">${tabs.map(([id,l])=>`<label class="ios-chip"><input type="radio" name="wvtab" ${state.weverseTab===id?'checked':''} onchange="switchWeverse('${id}')">${l}</label>`).join('')}</div>${feed}</div>`);}
+
+/* ---------- 음악 ---------- */
+function musicHTML(){
+return appWrap(navInline('')+`<div class="appscroll"><div class="musicHero"><div class="playlistHead"><div class="playlistArt"><img src="assets/music/one_more_second.svg" alt=""></div><div><div class="playlistTitle">읽씹?
+플레이리스트</div><div class="playlistMeta">지훈이 저장한 플레이리스트 · 8곡<br>최근 재생: One More Second</div></div></div></div>
+<div class="playbtns"><button class="ios-button" data-variant="filled" data-size="lg" style="background:#fa233b;color:#fff">${I('play','--w:14px;--h:16px')}&nbsp;재생</button><button class="ios-button" data-variant="gray" data-size="lg">임의 재생</button></div>
+${playlist.map((t,i)=>`<div class="track"><div class="no">${i+1}</div><div class="cov"><img src="${t[2]}" alt=""></div><div><div class="tt">${t[1]}</div><span class="sub">${t[0]}</span></div></div>`).join('')}</div>
+<div class="ios-accessory" style="margin:6px 25px -4px"><span class="ios-accessory__art" style="background:center/cover url(assets/music/one_more_second.svg)"></span><span class="ios-accessory__text">One More Second<small>1SECOND</small></span><label class="ios-accessory__button"><input type="checkbox" aria-label="재생/일시정지">${I('play')}${I('pause')}</label><button class="ios-accessory__button" aria-label="다음">${I('forward')}</button></div>
+<nav class="ios-tabbar"><div class="ios-tabbar__bar" style="--tabs:3"><label class="ios-tab"><input type="radio" name="mtab" aria-label="홈">${I('home')}<span>홈</span></label><label class="ios-tab"><input type="radio" name="mtab" aria-label="라디오">${I('radio')}<span>라디오</span></label><label class="ios-tab"><input type="radio" name="mtab" aria-label="보관함" checked>${I('library')}<span>보관함</span></label></div><button class="ios-tabbar__search" aria-label="검색">${I('search','--w:22px;--h:22px')}</button></nav>`);}
+
+/* ---------- Safari ---------- */
+function safariHTML(){flags.grouped=true;
+return appWrap(navLarge('최근 검색 기록')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><div class="ios-list__group">${['원세컨드 신유','신정환','성지유'].map((x,i)=>`<a href="#" class="ios-row" onclick="return false"><span class="ios-row__icon" style="--bg:var(--ios-gray)">${I('search')}</span><div class="ios-row__body"><span class="ios-row__title">${i+1}. ${x}</span>${I('arrow-up','transform:rotate(45deg);opacity:.5')}</div></a>`).join('')}</div></section></div></div>
+<div style="padding:8px 16px 44px"><label class="ios-search">${I('search')}<input type="search" placeholder="검색 또는 웹 사이트 이름 입력" aria-label="주소"></label></div>`);}
+
+/* ---------- 메모 ---------- */
+function notesHTML(){
+if(state.detail!==null){const d=diaryEntries[state.detail];
+return appWrap(navInline('',`<button class="ios-barbutton" onclick="state.detail=null;render()">${I('chevron-left')}</button>`,`<div class="ios-barbutton-group"><button class="ios-barbutton" aria-label="공유">${I('share','--w:19px;--h:19px')}</button><button class="ios-barbutton" aria-label="더보기">${I('ellipsis')}</button></div>`)+`<div class="appscroll" style="padding:0 20px"><h1 class="notes-title">${d.title}</h1>${d.pages.map((src,i)=>`<img class="diaryPage" src="${src}" alt="${d.title} ${i+1}페이지 원문">`).join('')}</div>
+<div style="padding:6px 16px 46px"><div class="ios-toolbar" style="width:100%"><button class="ios-barbutton" aria-label="체크리스트">${I('list-checks')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="표">${I('grid')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" aria-label="마크업">${I('pencil')}</button><span class="ios-toolbar__spacer"></span><button class="ios-barbutton" data-variant="prominent" aria-label="새로운 메모">${I('square-pen')}</button></div></div>`);}
+flags.grouped=true;
+return appWrap(navLarge('메모')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><h2 class="ios-list__header">모든 메모</h2><div class="ios-list__group">${diaryEntries.map((d,i)=>`<a href="#" class="ios-row" data-tall onclick="state.detail=${i};render();return false"><div class="ios-row__body"><span class="ios-row__title">${d.title}<span class="sub">일기 · ${d.pages.length}페이지</span></span>${I('chevron-right')}</div></a>`).join('')}</div></section></div></div>
+<div style="padding:6px 16px 46px"><div class="ios-toolbar" style="width:100%"><button class="ios-barbutton" aria-label="폴더">${I('folder')}</button><span class="ios-toolbar__label"><b>${diaryEntries.length}개의 메모</b></span><button class="ios-barbutton" data-variant="prominent" aria-label="새로운 메모">${I('square-pen')}</button></div></div>`);}
+
+/* ---------- 캘린더 / 카메라 ---------- */
+function calendarHTML(){flags.grouped=true;
+return appWrap(navLarge('10월 22일')+`<div class="appscroll"><div class="ios-list" style="padding:4px 0 20px"><section class="ios-list__section"><h2 class="ios-list__header">오늘 · 목요일</h2><div class="ios-list__group">${todayEvents.map(e=>`<div class="ios-row" data-tall><span class="cal-bar" style="background:${e[1]};margin-right:12px"></span><div class="ios-row__body"><span class="ios-row__title">${e[0]}</span></div></div>`).join('')}</div><p class="ios-list__footer">팬싸 날짜, 학교 일정, 공연 연습 날짜 같은 작은 흔적을 넣을 예정이야.</p></section></div></div>`);}
+function cameraHTML(){flags.dark=true;flags.white=true;
+return `<div class="cam"><div class="cam-view"></div><div class="cam-bar"><div class="cam-mode">사진</div><div class="cam-row"><div class="cam-thumb"><img src="assets/photos/001.jpg" alt=""></div><button class="shutter" aria-label="촬영" onclick="showToast('이번 버전에서는 사진첩을 먼저 구현했어.')"></button><button class="cam-flip" aria-label="전환">${I('camera','--w:22px;--h:20px')}</button></div></div></div>${homeTail()}`;}
+
+function appHTML(){switch(state.app){case'phone':return phoneHTML();case'kakao':return kakaoHTML();case'photos':return photosHTML();case'ai':return aiHTML();case'instagram':return instagramHTML();case'x':return xHTML();case'weverse':return weverseHTML();case'music':return musicHTML();case'safari':return safariHTML();case'notes':return notesHTML();case'calendar':return calendarHTML();case'camera':return cameraHTML();default:return ''}}
+
+/* ---------- 렌더 ---------- */
+function render(){
+ flags={};
+ const p=q('#phone');
+ let html='';
+ if(state.view==='lock')html=lockHTML();else if(state.view==='passcode')html=pinHTML();else if(state.view==='home')html=homeHTML();else html=appHTML();
+ if(flags.grouped)p.setAttribute('data-bg','grouped');else p.removeAttribute('data-bg');
+ p.classList.toggle('dark',!!flags.dark);
+ const hud=state.toast?`<div class="ios-hud" data-variant="pill" data-position="bottom" role="status">${I('circle-check')}${state.toast}</div>`:'';
+ p.innerHTML=(flags.wall?'<div class="wall"></div>':'')+html+statusBar(flags.white)+hud;
+}
+
+/* ---------- 기기 크기 맞춤 ---------- */
+function fit(){const narrow=innerWidth<=640;const padX=narrow?0:56,padY=narrow?0:56;const s=Math.min(1,(innerWidth-padX)/402,(innerHeight-padY)/874);document.documentElement.style.setProperty('--s',Math.max(.3,s).toFixed(4));}
+addEventListener('resize',fit);fit();
+
+/* ---------- 제스처 ---------- */
+let touchStartY=null,homeSwipeY=null;
+const ph=q('#phone');
+ph.addEventListener('touchstart',e=>{const y=e.touches[0].clientY;if(state.view==='lock')touchStartY=y;if(state.view==='app'&&e.target.closest('.homehit'))homeSwipeY=y;},{passive:true});
+ph.addEventListener('touchend',e=>{const y=e.changedTouches[0].clientY;if(state.view==='lock'&&touchStartY!==null){if(touchStartY-y>55)beginUnlock();touchStartY=null;}if(homeSwipeY!==null){if(homeSwipeY-y>30)goHome();homeSwipeY=null;}},{passive:true});
+ph.addEventListener('mousedown',e=>{if(state.view==='lock')touchStartY=e.clientY});
+ph.addEventListener('mouseup',e=>{if(state.view==='lock'&&touchStartY!==null){if(touchStartY-e.clientY>45)beginUnlock();touchStartY=null;}});
+render();
+</script>
+</body></html>
