@@ -113,27 +113,58 @@ a{color:inherit;text-decoration:none}
 .tweet .meta{font:400 13px/17px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e);margin-top:6px}
 
 /* ---------- Weverse ---------- */
-.wvHero{position:relative;padding:18px 20px 20px;background:linear-gradient(135deg,#202326,#101114);color:#fff;overflow:hidden;min-height:176px}
-.wvHero .bglogo{position:absolute;right:20px;top:20px;width:150px;opacity:.18}
-.wvHero h2{font:800 42px/1 var(--ios-font);margin:16px 0 12px}
-.wvHero .hs{opacity:.86;font:400 14px/18px var(--ios-font)}
-.membership{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);font:500 14px/18px var(--ios-font)}
-.membership .shield{width:18px;height:18px;border-radius:50%;background:#775df3;display:grid;place-items:center;color:#fff;font-size:12px}
-.wvCard{border-bottom:10px solid var(--ios-grouped-background,#f2f2f7);padding:16px}
-.wvMeta{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.miniava{width:42px;height:42px;border-radius:50%;overflow:hidden;flex:none}
-.miniava img{width:100%;height:100%;object-fit:cover}
-.metaTop{font:700 15px/20px var(--ios-font)}
-.metaSub{font:400 13px/17px var(--ios-font);color:var(--ios-secondary-label,#8a8a8e)}
-.caption{font:650 21px/27px var(--ios-font);margin:4px 0 12px}
-.screenShot{border-radius:20px;overflow:hidden;border:1px solid var(--ios-separator,#e5e5ea)}
-.screenShot img{width:100%;display:block}
-.livecard{display:flex;gap:12px;padding:16px;align-items:flex-start}
-.livecard .thumb{width:148px;border-radius:16px;overflow:hidden;flex:none}
-.livecard .thumb img{width:100%;display:block}
-.livecard .lt{font:700 18px/24px var(--ios-font)}
-.pill{display:inline-flex;font:500 12px/16px var(--ios-font);padding:4px 9px;background:#eef2ff;color:#4f46e5;border-radius:999px;margin-top:8px}
-
+.wv{--wv:#66768d;position:absolute;inset:0;background:#f3f3f5}
+.wv-bar{position:absolute;top:0;left:0;right:0;z-index:30}
+.wv-barbg{position:absolute;inset:0;background:var(--wv);opacity:0;transition:opacity .2s}
+.wv-bar.solid .wv-barbg{opacity:1}
+.wv-bar .ios-navbar__inline-title{color:#fff;opacity:0;transition:opacity .2s;font-weight:700}
+.wv-bar.solid .ios-navbar__inline-title{opacity:1}
+.wv-bar .ios-barbutton{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;color:#fff}
+.wv-scroll{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.wv-scroll::-webkit-scrollbar{display:none}
+.wvHero{position:relative;height:420px;box-sizing:border-box;padding-top:116px;display:flex;flex-direction:column;align-items:center;color:#fff;background:linear-gradient(180deg,#6d788d 0%,#8b92a6 52%,#a8adbd 100%);overflow:hidden}
+.wv-mark{width:158px;height:auto;margin-top:6px;opacity:.95;filter:drop-shadow(0 4px 14px rgba(40,50,80,.25))}
+.wv-mem{margin-top:auto;font:600 15px/20px var(--ios-font)}
+.wv-mem span{font-weight:400;opacity:.9}
+.wv-gname{font:800 54px/1.05 var(--ios-font);letter-spacing:-1px;margin:4px 0 14px}
+.wv-membership{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;padding:9px 16px 9px 11px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);font:700 18px/22px var(--ios-font)}
+.wv-membership i{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#3f9bff,#a24dff);display:grid;place-items:center;font-style:normal;font-size:15px}
+.wv-tabs{position:sticky;top:116px;z-index:20;display:flex;justify-content:space-around;background:#fff;border-bottom:1px solid #ececf0}
+.wv-tab{border:0;background:none;height:56px;padding:0 6px;font:700 17px/22px var(--ios-font);color:#2b2b2f;position:relative}
+.wv-tab.on{color:var(--wv)}
+.wv-tab.on:after{content:'';position:absolute;left:-6px;right:-6px;bottom:0;height:3px;background:var(--wv)}
+.off{pointer-events:none}
+.wv-chips{display:flex;gap:8px;padding:14px 16px 6px;background:#fff;overflow-x:auto}
+.wv-chip{flex:none;border:1.5px solid #dedee3;background:#fff;border-radius:999px;padding:8px 16px;font:600 16px/20px var(--ios-font);color:#2b2b2f}
+.wv-chip.on{background:var(--wv);border-color:var(--wv);color:#fff}
+.wv-feedhead{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 16px;background:#fff}
+.wv-feedhead b{font:800 24px/30px var(--ios-font)}
+.wv-feedhead span{display:flex;align-items:center;gap:6px;font:500 15px/20px var(--ios-font);color:#3a3a40}
+.wv-list{padding:12px 12px 70px}
+.wvPost{background:#fff;border-radius:26px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.wvPost-head{display:flex;align-items:center;gap:10px;padding:16px 16px 0}
+.wv-ava{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none}
+.wv-name1{display:flex;align-items:center;gap:5px;font:800 15px/20px var(--ios-font)}
+.wv-badge{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:#19b9cf;color:#fff;font:700 10px/1 var(--ios-font)}
+.wv-date{font:500 13px/17px var(--ios-font);color:#9a9aa2;display:flex;align-items:center;gap:5px}
+.wv-cc{border:1.5px solid #d4d4d9;border-radius:5px;padding:0 4px;font:800 12px/15px var(--ios-font);color:#8d8d95}
+.wvPost-text{position:relative;padding:12px 16px 14px;font:500 16px/23px var(--ios-font)}
+.wv-more{position:absolute;right:16px;bottom:14px;color:var(--wv);background:#fff;padding-left:8px;font-weight:500}
+.wv-trans{display:block;margin-top:8px;font:400 13px/17px var(--ios-font);color:#8d8d95;text-decoration:underline}
+.wvPost-img{display:block;width:100%;height:auto}
+.wvPost-foot{display:flex;align-items:center;gap:16px;padding:12px 16px 14px;font:700 14px/18px var(--ios-font);color:#3a3a40}
+.wvPost-foot span{display:flex;align-items:center;gap:7px}
+.wvPost-foot .bm{margin-left:auto}
+.wv-secret{text-align:center;padding:26px 0 24px;font:500 15px/20px var(--ios-font)}
+.wv-secret small{display:block;margin-top:4px;color:#9a9aa2;font-size:12px}
+a.wvLive,div.wvLive{display:block;background:#fff;border-radius:26px;overflow:hidden;margin-bottom:14px;box-shadow:0 1px 8px rgba(0,0,0,.05);color:inherit}
+.wvLive-thumb{display:block;width:100%;height:auto}
+.wvLive-head{display:flex;align-items:center;gap:12px;padding:16px 16px 0}
+.wv-grp{width:46px;height:46px;border-radius:50%;background:#6f95d6;color:#fff;display:grid;place-items:center;font:800 14px/1 var(--ios-font);flex:none}
+.wvLive-title{padding:12px 16px 14px;font:600 17px/24px var(--ios-font)}
+.wvLive-stats{padding:14px 16px 16px;border-top:1px solid #f0f0f3;font:500 14px/18px var(--ios-font);color:#9a9aa2}
+.wvLive-stats b{color:#55555c;font-weight:800;margin-right:3px}
+.wvLive-stats i{font-style:normal;margin:0 6px}
 /* ---------- 음악 ---------- */
 .musicHero{padding:8px 16px 16px;background:linear-gradient(180deg,#e8d7dc,transparent)}
 .playlistHead{display:flex;gap:16px;align-items:flex-end}
@@ -171,8 +202,8 @@ a{color:inherit;text-decoration:none}
 <div id="stage"><div id="scaler"><div id="device"><div id="phone" class="ios-surface"></div></div></div></div>
 <script>
 const PHOTOS=['001.jpg','002.jpg','003.jpg','004.jpg','005.jpg','006.jpg','007.jpg','008.jpg','009.jpg','010.jpg','011.jpg','012.jpg','013.jpg','weverse_1-297390107.jpg','weverse_1-298105017.jpg','weverse_1-298105018.jpg','weverse_3-336639365.jpg','weverse_3-339099838.jpg','weverse_4-328094447.jpg'];
-const ICONS={phone:'assets/icons/ios26_phone.png',kakao:'assets/icons/icon_kakao.png',photos:'assets/icons/icon_photos.svg',ai:'assets/icons/icon_chatgpt.png',instagram:'assets/icons/icon_instagram.png',x:'assets/icons/ios26_x.png',weverse:'assets/icons/icon_weverse.png',music:'assets/icons/ios26_music.png',calendar:'assets/icons/ios26_calendar.png',notes:'assets/icons/ios26_notes.png',safari:'assets/icons/ios26_safari.png',camera:'assets/icons/ios26_camera.png',settings:'assets/icons/icon_settings.svg',messages:'assets/icons/ios26_messages.png'};
-const state={view:'lock',pin:'',app:null,detail:null,photoIndex:null,weverseTab:'artist',xTab:'search',oldChat:false,aiThread:null,toast:null,callTab:'all',hinted:false};
+const ICONS={phone:'assets/icons/ios26_phone.png',kakao:'assets/icons/icon_kakao.png',photos:'assets/icons/ios26_photos.png',ai:'assets/icons/icon_chatgpt.png',instagram:'assets/icons/icon_instagram.png',x:'assets/icons/ios26_x.png',weverse:'assets/icons/icon_weverse.png',music:'assets/icons/ios26_music.png',calendar:'assets/icons/ios26_calendar.png',notes:'assets/icons/ios26_notes.png',safari:'assets/icons/ios26_safari.png',camera:'assets/icons/ios26_camera.png',settings:'assets/icons/icon_settings.svg',messages:'assets/icons/ios26_messages.png'};
+const state={view:'lock',pin:'',app:null,detail:null,photoIndex:null,weverseTab:'feed',xTab:'search',oldChat:false,aiThread:null,toast:null,callTab:'all',hinted:false};
 const calls=[
   ['신신신정환','오늘 오전 9:18','부재중'],['엄마','어제 오후 8:42','발신'],['누나','어제 오후 6:03','수신'],['010-3114-1106','어제 오후 4:17','부재중'],['누나','그제 오후 11:20','수신'],['엄마','그제 오후 7:55','발신'],['신신신정환','그제 오후 2:34','수신'],['070-3827-1003','10월 16일','부재중']
 ];
@@ -235,7 +266,7 @@ function flash(msg){state.toast=msg;render();setTimeout(()=>{if(state.toast===ms
 function showToast(msg){flash(msg)}
 
 /* ---------- 이동 ---------- */
-function openApp(id){state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='artist';if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
+function openApp(id){state.view='app';state.app=id;state.detail=null;state.photoIndex=null;if(id==='weverse')state.weverseTab='feed';if(id==='x')state.xTab='search';if(!state.hinted){state.hinted=true;state.toast='아래 막대를 눌러 홈으로 돌아가요';setTimeout(()=>{if(state.toast){state.toast=null;render();}},2600);}render();}
 function goHome(){state.view='home';state.app=null;state.detail=null;state.photoIndex=null;render();}
 function openChat(name){state.detail=name;render();}
 function openPhoto(i){state.photoIndex=i;render();}
@@ -322,14 +353,32 @@ else{inner=`<div class="ios-list" style="padding:4px 0 20px"><section class="ios
 return appWrap(navInline('X')+`<div class="pad"><label class="ios-search" data-variant="filled">${I('search')}<input type="search" value="신유 열애설" aria-label="검색" readonly></label></div><div class="pad" style="padding-top:0">${segmented('xtab',[['search','검색 기록'],['scandal','팬 반응']],state.xTab,'switchX')}</div><div class="appscroll">${inner}</div>`);}
 
 /* ---------- Weverse ---------- */
-function weverseHTML(){let feed='';
-const post=(src,when,cap,img)=>`<div class="wvCard"><div class="wvMeta"><div class="miniava"><img src="assets/photos/${src}" alt=""></div><div><div class="metaTop">귀염둥이 딸기 오빠 🍓</div><div class="metaSub">${when}</div></div></div><div class="caption">${cap}</div><div class="screenShot"><img src="assets/weverse/${img}" alt=""></div></div>`;
-if(state.weverseTab==='artist'){feed=post('009.jpg','10.16. 17:13','금요일 파이팅!','post1.png')+post('001.jpg','09.02. 14:06','OOTD','post2.png')+post('002.jpg','10.17. 22:24','첫만남 신유','post3.png')+post('003.jpg','09.23. 22:57','즐거운 추석을 보내세용','post4.png');}
-else if(state.weverseTab==='live'){feed=`<a class="livecard" href="https://weverse.io/tws/live/2-180502498?hl=ko" target="_blank" rel="noreferrer"><div class="thumb"><img src="assets/weverse/live_thumb.png" alt=""></div><div><div class="lt">제철 신(유) 🦐</div><div class="sub" style="margin-top:8px">09.24. 14:09 · 재생 278K · 채팅 66.6K</div><div class="pill">LIVE 링크 열기 ↗</div><div style="margin-top:10px;font:400 14px/20px var(--ios-font);color:var(--ios-secondary-label)">썸네일을 누르면 실제 위버스 라이브 페이지로 이동해.</div></div></a>`;}
-else{feed=`<div style="padding:26px 18px;color:var(--ios-secondary-label);font:400 15px/22px var(--ios-font)">${state.weverseTab} 탭은 다음 버전에서 더 채울 예정이야.</div>`;}
-const tabs=[['highlight','Highlight'],['fan','Fan'],['artist','Artist'],['fanletter','Fan Letter'],['media','Media'],['live','LIVE'],['notice','Notice'],['shop','Shop']];
-return appWrap(navInline('1SECOND',`<button class="ios-barbutton" aria-label="메뉴">${I('grid')}</button>`,`<div class="ios-barbutton-group"><span class="ios-badged"><button class="ios-barbutton" aria-label="알림">${I('bell')}</button><span class="ios-badge" data-size="sm">99+</span></span><button class="ios-barbutton" aria-label="메시지">${I('plane')}</button></div>`)+`<div class="appscroll"><div class="wvHero"><img class="bglogo" src="assets/one_second_logo.svg" alt=""><div class="hs">4.2만 members · ✓ 가입 완료</div><h2>1SECOND</h2><span class="membership"><span class="shield">♡</span>Membership</span></div>
-<div class="ios-chips" style="padding-top:12px;padding-bottom:12px;overflow-x:auto">${tabs.map(([id,l])=>`<label class="ios-chip"><input type="radio" name="wvtab" ${state.weverseTab===id?'checked':''} onchange="switchWeverse('${id}')">${l}</label>`).join('')}</div>${feed}</div>`);}
+const WV_ICON={
+ heart:'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20.5s-8-4.6-8-10.6A4.4 4.4 0 0 1 8.4 5.5c1.5 0 2.8.8 3.6 2 .8-1.2 2.1-2 3.6-2A4.4 4.4 0 0 1 20 9.9c0 6-8 10.6-8 10.6z"/></svg>',
+ bubble:'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 4c4.6 0 8 3 8 6.8s-3.4 6.8-8 6.8c-.8 0-1.6-.1-2.3-.3L5 19.5l1.2-3.6C4.8 14.7 4 12.9 4 10.8 4 7 7.4 4 12 4z"/></svg>',
+ mark:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6.5 3.5h11v17L12 16.5l-5.5 4z"/></svg>',
+ filter:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h9M17 8h3M4 16h3M11 16h9"/><circle cx="15" cy="8" r="2"/><circle cx="9" cy="16" r="2"/></svg>'
+};
+const WV_BADGE='<span class="wv-badge">✓</span>';
+const WV_LOGO='<svg class="wv-mark" viewBox="226 90 440 240" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" aria-label="1SECOND"><path d="M250 100 L330 210 L250 320"/><path d="M360 100 L440 210 L360 320"/><path d="M530 100 L450 210 L530 320"/><path d="M640 100 L560 210 L640 320"/></svg>';
+const wvFoot=(a,b)=>`<div class="wvPost-foot"><span>${WV_ICON.heart}${a}</span><span>${WV_ICON.bubble}${b}</span><span class="bm">${WV_ICON.mark}</span></div>`;
+const wvPost=(date,text,img,w,h,a,b,extra='')=>`<article class="wvPost"><div class="wvPost-head"><img class="wv-ava" src="assets/weverse/avatar_member.png" alt=""><div><div class="wv-name1">귀염둥이 딸기 오빠🍓${WV_BADGE}</div><div class="wv-date">${date}</div></div></div><div class="wvPost-text">${text}${extra}</div>${img?`<img class="wvPost-img" src="assets/weverse/${img}" width="${w}" height="${h}" style="aspect-ratio:${w}/${h}" alt="">`:''}${wvFoot(a,b)}</article>`;
+const wvLive=(date,title,img,w,h,stats,href)=>{const inner=`<img class="wvLive-thumb" src="assets/weverse/${img}" width="${w}" height="${h}" style="aspect-ratio:${w}/${h}" alt=""><div class="wvLive-head"><span class="wv-grp">1S:</span><div><div class="wv-name1">1SECOND${WV_BADGE}</div><div class="wv-date">${date}<span>·</span><span class="wv-cc">cc</span></div></div><span style="margin-left:auto;color:#2b2b2f">${WV_ICON.mark}</span></div><div class="wvLive-title">${title}</div><div class="wvLive-stats">재생 <b>${stats[0]}</b><i>·</i>좋아요 <b>${stats[1]}</b><i>·</i>채팅 <b>${stats[2]}</b></div>`;return href?`<a class="wvLive" href="${href}" target="_blank" rel="noreferrer">${inner}</a>`:`<div class="wvLive">${inner}</div>`;};
+function wvScroll(el){const bar=q('.wv-bar');if(bar)bar.classList.toggle('solid',el.scrollTop>230);}
+function weverseHTML(){flags.white=true;
+const feedTab=state.weverseTab!=='live';let body='';
+if(feedTab){body=`<div class="wv-chips"><button class="wv-chip off" tabindex="-1">Highlight</button><button class="wv-chip off" tabindex="-1">Fan</button><button class="wv-chip on">Artist</button><button class="wv-chip off" tabindex="-1">Party</button></div><div class="wv-feedhead"><b>피드</b><span>필터 ${WV_ICON.filter}</span></div>
+<div class="wv-list">${wvPost('10. 17. 22:24','첫만남 신유','post_meet.jpg',1121,555,'10K+','9.9K')}
+${wvPost('10. 17. 18:22','벌써 1000일이라는 시간이 지났는데<br>사랑 하는 사람과 함께 보내니까<br>시간이 너무 빨리 간 것 같아요...','post_1000.jpg',1120,1122,'10K+','9.8K','<span class="wv-more">더 보기</span>')}
+${wvPost('10. 16. 17:13','금요일 파이팅!','post_fri.jpg',1121,659,'10K+','7.2K')}
+${wvPost('10. 12. 11:57','요즘 내가 좋아하는 것','post_fav.jpg',1122,740,'10K+','8.5K')}
+${wvPost('09. 23. 22:57','즐거운 추석을 보내세용','post_chuseok.jpg',713,356,'10K+','10K+')}
+<article class="wvPost"><div class="wvPost-head"><img class="wv-ava" src="assets/weverse/avatar_member.png" alt=""><div><div class="wv-name1">귀염둥이 딸기 오빠🍓${WV_BADGE}</div><div class="wv-date">09. 17. 00:44</div></div></div><div class="wv-secret">🔒 비밀 포스트<small>클릭해서 이 포스트 보기</small></div>${wvFoot('10K+','10K+')}</article>
+${wvPost('09. 02. 14:06','OOTD<span class="wv-trans">번역 보기</span>','post_ootd.jpg',713,475,'10K+','8.6K')}</div>`;}
+else{body=`<div class="wv-list" style="padding-top:14px">${wvLive('09. 24. 14:09','제철의 신(유)🦐','live_shin.jpg',1110,598,['278K','750K','66.6K'],'https://weverse.io/tws/live/2-180502498?hl=ko')}${wvLive('08. 14. 19:59','곱슬머리 신유가 돌아왔다','live_curly.jpg',1078,604,['336K','1.1M','185K'])}</div>`;}
+return `<div class="wv"><div class="wv-bar" id="wvbar"><div class="wv-barbg"></div><div style="height:62px"></div><header class="ios-navbar"><div class="ios-navbar__bar"><div class="ios-navbar__leading"><button class="ios-barbutton" aria-label="뒤로" onclick="goHome()">${I('chevron-left')}</button></div><h1 class="ios-navbar__inline-title">1SECOND</h1><div class="ios-navbar__trailing"><button class="ios-barbutton" aria-label="AI">${I('star')}</button><button class="ios-barbutton" aria-label="더보기">${I('ellipsis','transform:rotate(90deg)')}</button></div></div></header></div>
+<div class="wv-scroll" onscroll="wvScroll(this)"><div class="wvHero">${WV_LOGO}<div class="wv-mem">4.2만 members <span>· ✓ 가입 완료</span></div><h2 class="wv-gname">1SECOND</h2><div class="wv-membership"><i>♡</i>Membership<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div></div>
+<div class="wv-tabs"><button class="wv-tab off" tabindex="-1">Home</button><button class="wv-tab ${feedTab?'on':''}" onclick="switchWeverse('feed')">Feed</button><button class="wv-tab ${feedTab?'':'on'}" onclick="switchWeverse('live')">LIVE·Media</button><button class="wv-tab off" tabindex="-1">Shop</button></div>${body}</div></div>${homeTail()}`;}
 
 /* ---------- 음악 ---------- */
 function musicHTML(){
